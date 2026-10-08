@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1450" width="2400" height="1450">
+    <defs>
+        <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+            <feOffset dx="0" dy="3" />
+            <feComponentTransfer><feFuncA type="linear" slope="0.08" /></feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <linearGradient id="curArchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b172a" />
+            <stop offset="100%" stop-color="#1e293b" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Background Canvas -->
+    <rect width="2400" height="1450" fill="#f8fafc" />
+    
+    <!-- Top System Header Banner -->
+    <rect x="0" y="0" width="2400" height="100" fill="url(#curArchGrad)" />
+    <line x1="0" y1="100" x2="2400" y2="100" stroke="#c59b27" stroke-width="3" />
+    
+    <text x="50" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" fill="#f8fafc">
+        JUDICIARY INFORMATION SYSTEM (JIS) — CURRENT SYSTEM ARCHITECTURE
+    </text>
+    <text x="50" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">
+        Production Constitutional &amp; Legal Repository Architecture • Strict REAL_VERIFIED Judgment Pipeline
+    </text>
+    
+    <rect x="1800" y="32" width="550" height="38" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="1820" cy="51" r="5" fill="#34d399" />
+    <text x="1835" y="55" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="700" fill="#ecfdf5">
+        STATUS: LIVE &amp; OPERATIONAL ON HTTP://LOCALHOST:3001
+    </text>
+    
+
+    <!-- TIER 1 -->
+    <rect x="50" y="130" width="2300" height="320" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 142 Q 50 130 62 130 L 2338 130 Q 2350 130 2350 142 L 2350 170 L 50 170 Z" fill="#1e293b" />
+    <text x="70" y="157" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+        TIER 1: PRESENTATION LAYER (Semantic HTML5, CSS3 &amp; Vanilla JavaScript Client)
+    </text>
+    
+
+        <rect x="70" y="190" width="430" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="70" y="190" width="430" height="32" rx="8" fill="#0f172a" />
+        <text x="82" y="211" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🏛️ Constitutional Homepage</text>
+        <text x="82" y="240" font-family="'SF Mono', Menlo, monospace" font-size="10" font-weight="600" fill="#64748b">public/index.html</text>
+        
+<text x="82" y="264" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Authentic Supreme Court insignia</text>
+<text x="82" y="286" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Sanskrit Devanagari identity</text>
+<text x="82" y="308" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Indian Constitutional Preamble values</text>
+<text x="82" y="330" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Real-time metric cards (from /api/stats)</text>
+
+        <rect x="520" y="190" width="430" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="520" y="190" width="430" height="32" rx="8" fill="#1e3a8a" />
+        <text x="532" y="211" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">⚖️ Judgments Explorer View</text>
+        <text x="532" y="240" font-family="'SF Mono', Menlo, monospace" font-size="10" font-weight="600" fill="#64748b">#judgments-view</text>
+        
+<text x="532" y="264" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Live search by ratio, title &amp; issue</text>
+<text x="532" y="286" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Multi-tier Court &amp; Year filters</text>
+<text x="532" y="308" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Strict genuine verified records only</text>
+<text x="532" y="330" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Fast responsive pagination (10 per page)</text>
+
+        <rect x="970" y="190" width="430" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="970" y="190" width="430" height="32" rx="8" fill="#0369a1" />
+        <text x="982" y="211" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">📜 Judgment Detail Dossier</text>
+        <text x="982" y="240" font-family="'SF Mono', Menlo, monospace" font-size="10" font-weight="600" fill="#64748b">#judgment-detail-view</text>
+        
+<text x="982" y="264" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Case Overview &amp; background</text>
+<text x="982" y="286" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Legal Issues presented to Court</text>
+<text x="982" y="308" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Operative Judgment &amp; Holding</text>
+<text x="982" y="330" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• 5-7 Point-wise case-specific findings</text>
+<text x="982" y="352" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Interpreted Statutory Provisions</text>
+
+        <rect x="1420" y="190" width="430" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1420" y="190" width="430" height="32" rx="8" fill="#0f766e" />
+        <text x="1432" y="211" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">📑 Verified PDF Viewer</text>
+        <text x="1432" y="240" font-family="'SF Mono', Menlo, monospace" font-size="10" font-weight="600" fill="#64748b">#pdf-modal</text>
+        
+<text x="1432" y="264" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Inline streamed authentic PDF</text>
+<text x="1432" y="286" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Direct Supreme Court registry links</text>
+<text x="1432" y="308" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• SHA-256 integrity verification badge</text>
+<text x="1432" y="330" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Clean full-screen inspection</text>
+
+        <rect x="1870" y="190" width="430" height="240" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1870" y="190" width="430" height="32" rx="8" fill="#4338ca" />
+        <text x="1882" y="211" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🔄 Statutory Concordance Matrix</text>
+        <text x="1882" y="240" font-family="'SF Mono', Menlo, monospace" font-size="10" font-weight="600" fill="#64748b">#mappings-view</text>
+        
+<text x="1882" y="264" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• IPC ➔ BNS Concordance table</text>
+<text x="1882" y="286" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• CrPC ➔ BNSS Transition mapping</text>
+<text x="1882" y="308" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• IEA ➔ BSA Evidentiary mapping</text>
+<text x="1882" y="330" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Bidirectional provision cross-links</text>
+
+    <!-- TIER 2 -->
+    <rect x="50" y="490" width="2300" height="380" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 502 Q 50 490 62 490 L 2338 490 Q 2350 490 2350 502 L 2350 530 L 50 530 Z" fill="#1e3a8a" />
+    <text x="70" y="517" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+        TIER 2: APPLICATION ENGINE &amp; REST APIS (Node.js &amp; Express 4.x - server.js)
+    </text>
+    
+
+        <rect x="70" y="550" width="430" height="290" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="70" y="550" width="430" height="32" rx="8" fill="#1e3a8a" />
+        <text x="82" y="571" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">GET /api/stats</text>
+        <text x="82" y="600" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#64748b">Repository Metrics Engine</text>
+        
+<text x="82" y="626" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Real-time SQL aggregation</text>
+<text x="82" y="650" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Strict REAL_VERIFIED filter</text>
+<text x="82" y="674" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Total acts, sections, mappings</text>
+<text x="82" y="698" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Verified PDF document count</text>
+
+        <rect x="520" y="550" width="430" height="290" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="520" y="550" width="430" height="32" rx="8" fill="#0369a1" />
+        <text x="532" y="571" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">GET /api/judgments</text>
+        <text x="532" y="600" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#64748b">Verified Judgment Search Pipeline</text>
+        
+<text x="532" y="626" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Parameters: q, court, year, sort, page</text>
+<text x="532" y="650" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• SQL WHERE: is_synthetic = 0</text>
+<text x="532" y="674" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• SQL AND: record_provenance = 'REAL_VERIFIED'</text>
+<text x="532" y="698" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• In-memory PDF manifest enrichment</text>
+
+        <rect x="970" y="550" width="430" height="290" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="970" y="550" width="430" height="32" rx="8" fill="#0f766e" />
+        <text x="982" y="571" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">GET /api/judgments/:id</text>
+        <text x="982" y="600" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#64748b">Single Judgment Detail Pipeline</text>
+        
+<text x="982" y="626" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Verified record integrity validation</text>
+<text x="982" y="650" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• JOINs judgment_legal_sections</text>
+<text x="982" y="674" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Injects curated findings from case_records.json</text>
+<text x="982" y="698" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Returns PDF metadata &amp; source URL</text>
+
+        <rect x="1420" y="550" width="430" height="290" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1420" y="550" width="430" height="32" rx="8" fill="#065f46" />
+        <text x="1432" y="571" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">GET /api/judgments/:id/pdf</text>
+        <text x="1432" y="600" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#64748b">Verified PDF Stream Pipeline</text>
+        
+<text x="1432" y="626" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Looks up data/verified_pdf_manifest.json</text>
+<text x="1432" y="650" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Pipes authenticated PDF directly to client</text>
+<text x="1432" y="674" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Headers: application/pdf, inline</text>
+<text x="1432" y="698" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Fallback to official judicial portal URL</text>
+
+        <rect x="1870" y="550" width="430" height="290" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1870" y="550" width="430" height="32" rx="8" fill="#4338ca" />
+        <text x="1882" y="571" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">GET /api/acts &amp; /api/mappings</text>
+        <text x="1882" y="600" font-family="-apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#64748b">Statutory Concordance Engine</text>
+        
+<text x="1882" y="626" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Returns 10 Acts &amp; 2,419 Sections</text>
+<text x="1882" y="650" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Resolves bidirectional mappings</text>
+<text x="1882" y="674" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• IPC ➔ BNS, CrPC ➔ BNSS, IEA ➔ BSA</text>
+<text x="1882" y="698" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Procedural classifications</text>
+
+    <!-- TIER 3 -->
+    <rect x="50" y="910" width="2300" height="490" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 922 Q 50 910 62 910 L 2338 910 Q 2350 910 2350 922 L 2350 950 L 50 950 Z" fill="#0f766e" />
+    <text x="70" y="937" font-family="-apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff">
+        TIER 3: DATA, DOCUMENT &amp; KNOWLEDGE STORAGE TIER
+    </text>
+    
+
+        <rect x="70" y="970" width="720" height="400" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="70" y="970" width="720" height="32" rx="8" fill="#0f766e" />
+        <text x="84" y="991" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🗄️ Relational Database (MySQL 8 - jis_db)</text>
+        
+<text x="84" y="1035" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• legal_judgments (105 REAL_VERIFIED Cases)</text>
+<text x="84" y="1061" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• legal_acts (10 Substantive, Procedural &amp; Constitutional Enactments)</text>
+<text x="84" y="1087" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• legal_sections (2,419 Provisions &amp; Articles)</text>
+<text x="84" y="1113" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• legal_section_relations (149 Transition Concordances)</text>
+<text x="84" y="1139" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• judgment_legal_sections (126 Judicial Interpretations)</text>
+<text x="84" y="1165" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• judgment_documents (Verified Document Metadata Records)</text>
+<text x="84" y="1191" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Strict WHERE is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED'</text>
+
+        <rect x="830" y="970" width="720" height="400" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="830" y="970" width="720" height="32" rx="8" fill="#047857" />
+        <text x="844" y="991" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">📂 Authenticated PDF Storage Vault</text>
+        
+<text x="844" y="1035" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• uploads/legal_judgments/ (98 Authentic Supreme Court Judgments)</text>
+<text x="844" y="1061" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• data/verified_pdf_manifest.json (Cryptographic Manifest &amp; Hashes)</text>
+<text x="844" y="1087" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Includes landmark rulings: Kesavananda, Puttaswamy, Maneka Gandhi,</text>
+<text x="844" y="1113" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">  Navtej Johar, Lalita Kumari, Arnesh Kumar, Electoral Bonds, etc.</text>
+<text x="844" y="1139" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Direct byte-stream delivery with zero third-party tracking</text>
+<text x="844" y="1165" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Local filesystem persistence with absolute provenance integrity</text>
+
+        <rect x="1590" y="970" width="720" height="400" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1590" y="970" width="720" height="32" rx="8" fill="#065f46" />
+        <text x="1604" y="991" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🧠 Judicial Analysis &amp; Intelligence Store</text>
+        
+<text x="1604" y="1035" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• data/case_records.json (105 Curated Judicial Knowledge Records)</text>
+<text x="1604" y="1061" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Case Overview: Background &amp; constitutional dispute origin</text>
+<text x="1604" y="1087" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Issues Before The Court: Exact legal questions adjudicated</text>
+<text x="1604" y="1113" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Judgment &amp; Holding: Operative constitutional decision</text>
+<text x="1604" y="1139" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Key Legal Findings: 5-7 Case-specific point-wise legal findings</text>
+<text x="1604" y="1165" font-family="-apple-system, sans-serif" font-size="11.5" fill="#334155">• Relevant Statutory Provisions &amp; Interpreted Doctrines</text>
+</svg>

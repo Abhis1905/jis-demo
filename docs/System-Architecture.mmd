@@ -1,0 +1,80 @@
+flowchart TB
+    %% =========================================================================
+    %% JUDICIARY INFORMATION SYSTEM (JIS) - CURRENT PRODUCTION ARCHITECTURE
+    %% Real Verified Legal Repository & Statutory Concordance Engine
+    %% =========================================================================
+
+    subgraph CLIENT_TIER["Presentation Tier (Modern Web Client)"]
+        UI_HOME["🏛️ Homepage (Constitutional & Judicial Portal)\n• Authentic Insignia & Sanskrit Identity\n• Supreme Court Preamble & Values\n• Repository Metric Overview"]
+        UI_SEARCH["⚖️ Judgments Explorer\n• Full-text Search (Ratio, Title, Issue)\n• Court & Year Multi-tier Filters\n• Paginated Genuine Case Cards"]
+        UI_DETAIL["📜 Judgment Detail Record\n• Case Overview & Issues\n• Judgment & Holding\n• 5-7 Point-wise Legal Findings\n• Cited Statutory Sections"]
+        UI_PDF["📑 Verified PDF Viewer\n• Inline Streamed Judgment PDF\n• Official Registry Source Links\n• Cryptographic Verification"]
+        UI_CONCORDANCE["🔄 Statutory Transition Matrix\n• IPC ➔ BNS Concordance\n• CrPC ➔ BNSS Concordance\n• IEA ➔ BSA Concordance"]
+    end
+
+    subgraph APP_TIER["Application Tier (Node.js & Express REST Engine)"]
+        SERVER["🚀 Express 4.x REST Server (server.js)\nPort: 3001 | Strict Input Validation"]
+
+        subgraph CONTROLLERS["API Routing & Controllers"]
+            API_STATS["/api/stats\nRepository Metrics Engine"]
+            API_JUDGMENTS["/api/judgments & /api/judgments/:id\nStrict REAL_VERIFIED Query Pipeline"]
+            API_PDF["/api/judgments/:id/pdf\nSecure Verified PDF Stream Pipeline"]
+            API_ACTS["/api/acts & /api/acts/:id\nStatutory Code & Chapter Hierarchy"]
+            API_MAPPINGS["/api/mappings & /api/sections/:id\nTransition Concordance Resolver"]
+        end
+
+        SERVER --> API_STATS
+        SERVER --> API_JUDGMENTS
+        SERVER --> API_PDF
+        SERVER --> API_ACTS
+        SERVER --> API_MAPPINGS
+    end
+
+    subgraph STORAGE_TIER["Data & Knowledge Storage Tier"]
+        subgraph DB["🗄️ Relational Database (MySQL 8 - jis_db)"]
+            T_JUDGMENTS["legal_judgments\n105 REAL_VERIFIED Cases"]
+            T_ACTS["legal_acts\n10 Acts (Old & New Criminal Codes)"]
+            T_SECTIONS["legal_sections\n2,419 Provisions & Articles"]
+            T_RELATIONS["legal_section_relations\n149 Statutory Concordances"]
+            T_JUNCTION["judgment_legal_sections\n126 Judicial Interpretations"]
+            T_DOCS["judgment_documents\nAuthenticated Records"]
+        end
+
+        subgraph FILE_VAULT["📂 Authenticated PDF Storage"]
+            PDF_FILES["uploads/legal_judgments/\n98 Authentic Supreme Court Judgments"]
+            PDF_MANIFEST["data/verified_pdf_manifest.json\nRegistry Document Hash & Manifest"]
+        end
+
+        subgraph KNOWLEDGE_VAULT["🧠 Judicial Analysis Store"]
+            CASE_RECORDS["data/case_records.json\n105 Curated Judicial Findings & Ratios"]
+        end
+    end
+
+    %% Client to Server interactions
+    UI_HOME -->|HTTP GET /api/stats| API_STATS
+    UI_SEARCH -->|HTTP GET /api/judgments| API_JUDGMENTS
+    UI_DETAIL -->|HTTP GET /api/judgments/:id| API_JUDGMENTS
+    UI_PDF -->|HTTP GET /api/judgments/:id/pdf| API_PDF
+    UI_CONCORDANCE -->|HTTP GET /api/acts & /api/mappings| API_ACTS
+    UI_CONCORDANCE -->|HTTP GET /api/mappings| API_MAPPINGS
+
+    %% Server to Storage interactions
+    API_STATS -->|SELECT COUNT strictly REAL_VERIFIED| T_JUDGMENTS
+    API_STATS -->|SELECT COUNT| T_ACTS
+    API_STATS -->|SELECT COUNT| T_SECTIONS
+    API_STATS -->|SELECT COUNT| T_RELATIONS
+
+    API_JUDGMENTS -->|WHERE is_synthetic=0 AND provenance='REAL_VERIFIED'| T_JUDGMENTS
+    API_JUDGMENTS -->|JOIN| T_JUNCTION
+    API_JUDGMENTS -->|JOIN| T_SECTIONS
+    API_JUDGMENTS -->|Reads curated ratios| CASE_RECORDS
+
+    API_PDF -->|Streams local authenticated PDF| PDF_FILES
+    API_PDF -->|Verifies against manifest| PDF_MANIFEST
+    API_PDF -->|Fallback metadata query| T_DOCS
+
+    API_ACTS -->|Query acts and provisions| T_ACTS
+    API_ACTS -->|Query sections list| T_SECTIONS
+
+    API_MAPPINGS -->|Resolve statutory concordance| T_RELATIONS
+    API_MAPPINGS -->|Fetch bidirectional provisions| T_SECTIONS

@@ -1,0 +1,130 @@
+erDiagram
+    %% =========================================================================
+    %% JUDICIARY INFORMATION SYSTEM (JIS) - CURRENT PRODUCTION ER DIAGRAM
+    %% Verified Active Legal & Statutory Repository Schema (Implemented Today)
+    %% Provenance: is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED'
+    %% =========================================================================
+
+    LEGAL_ACTS ||--o{ LEGAL_CHAPTERS : "contains (1:N)"
+    LEGAL_ACTS ||--o{ LEGAL_SECTIONS : "enacts (1:N)"
+    LEGAL_CHAPTERS ||--o{ LEGAL_SECTIONS : "groups (1:N)"
+    LEGAL_SECTIONS ||--o{ LEGAL_SECTION_RELATIONS : "from_section (1:N)"
+    LEGAL_SECTIONS ||--o{ LEGAL_SECTION_RELATIONS : "to_section (1:N)"
+    LEGAL_SECTIONS ||--o{ LEGAL_SECTION_CATEGORIES : "categorized (1:N)"
+    LEGAL_CATEGORIES ||--o{ LEGAL_SECTION_CATEGORIES : "applies_to (1:N)"
+    LEGAL_SECTIONS ||--o| LEGAL_PROCEDURAL_CLASSIFICATIONS : "specifies (1:1)"
+    LEGAL_JUDGMENTS ||--o{ JUDGMENT_LEGAL_SECTIONS : "interprets (1:N)"
+    LEGAL_SECTIONS ||--o{ JUDGMENT_LEGAL_SECTIONS : "cited_in (1:N)"
+    LEGAL_JUDGMENTS ||--o{ JUDGMENT_DOCUMENTS : "authenticated_by (1:N)"
+    LEGAL_JUDGMENTS ||--o{ JUDGMENT_CITATIONS : "reported_as (1:N)"
+
+    LEGAL_ACTS {
+        int id PK "Primary Key"
+        string code "Act identifier code (e.g. IPC, BNS, CONSTITUTION)"
+        string title "Full statutory title"
+        string short_title "Standard short title"
+        int enactment_year "Year enacted by Parliament"
+        string act_type "Substantive, Procedural, Constitutional"
+        string status "ACTIVE, REPEALED, TRANSITIONAL"
+    }
+
+    LEGAL_CHAPTERS {
+        int id PK "Primary Key"
+        int act_id FK "Foreign Key -> LEGAL_ACTS"
+        string chapter_number "Chapter designation (Roman/Numeric)"
+        string chapter_title "Subject matter of Chapter"
+        string start_section "First section included"
+        string end_section "Last section included"
+    }
+
+    LEGAL_SECTIONS {
+        int id PK "Primary Key"
+        int act_id FK "Foreign Key -> LEGAL_ACTS"
+        int chapter_id FK "Foreign Key -> LEGAL_CHAPTERS"
+        string section_number "Section / Article number (e.g. Art 21, Sec 302)"
+        string section_title "Marginal note / section title"
+        text section_content "Statutory text / provision body"
+        string legal_nature "Penal, Procedure, Fundamental Right, Directive"
+        int section_order "Sorting order within Act"
+        string status "IN_FORCE, REPEALED, SUPERSEDED"
+    }
+
+    LEGAL_SECTION_RELATIONS {
+        int id PK "Primary Key"
+        int from_section_id FK "Old / Source statutory section (e.g. IPC s.302)"
+        int to_section_id FK "New / Target statutory section (e.g. BNS s.101)"
+        string relation_type "REPLACED_BY, CONCORDANCE, TRANSITIONAL"
+        text notes "Comparative scope and legislative changes"
+        string source_name "Concordance reference table"
+    }
+
+    LEGAL_CATEGORIES {
+        int id PK "Primary Key"
+        string name "Category name (e.g. Criminal, Constitutional, Evidence)"
+        string category_type "Taxonomy division"
+        text description "Scope and description of category"
+    }
+
+    LEGAL_SECTION_CATEGORIES {
+        int id PK "Primary Key"
+        int section_id FK "Foreign Key -> LEGAL_SECTIONS"
+        int category_id FK "Foreign Key -> LEGAL_CATEGORIES"
+    }
+
+    LEGAL_PROCEDURAL_CLASSIFICATIONS {
+        int id PK "Primary Key"
+        int section_id FK "Foreign Key -> LEGAL_SECTIONS (1:1)"
+        string bailable_status "Bailable / Non-Bailable"
+        string cognizable_status "Cognizable / Non-Cognizable"
+        string compoundable_status "Compoundable / Non-Compoundable"
+        string triable_by "Court of Session, Magistrate 1st Class, Any Magistrate"
+    }
+
+    LEGAL_JUDGMENTS {
+        int id PK "Primary Key"
+        string court_tier "Supreme Court of India, High Court"
+        string court_name "Full official court name"
+        string case_name "Authoritative title (Petitioner v. Respondent)"
+        string case_number "Official judicial registration number"
+        string citation "Standard reporter citation (SCC, SCR, AIR)"
+        string neutral_citation "Indian Neutral Citation System"
+        datetime judgment_date "Pronouncement date"
+        text bench_judges "Bench composition / Coram"
+        int bench_strength "Number of judges on the bench"
+        string domain "Constitutional, Criminal, Civil, Administrative"
+        text legal_issue "Core questions of law presented"
+        text key_ratio "Ratio decidendi of the judgment"
+        text key_holding "Binding operational holding"
+        tinyint is_landmark "1 = Landmark precedence, 0 = Standard"
+        tinyint is_synthetic "STRICTLY 0 - No synthetic records"
+        string record_provenance "STRICTLY 'REAL_VERIFIED'"
+    }
+
+    JUDGMENT_LEGAL_SECTIONS {
+        int id PK "Primary Key"
+        int judgment_id FK "Foreign Key -> LEGAL_JUDGMENTS"
+        int section_id FK "Foreign Key -> LEGAL_SECTIONS"
+        string relevance_nature "Interpreted & Applied, Distinguished, Struck Down"
+    }
+
+    JUDGMENT_DOCUMENTS {
+        int id PK "Primary Key"
+        int judgment_id FK "Foreign Key -> LEGAL_JUDGMENTS"
+        string document_type "AUTHENTIC_JUDGMENT_PDF, SIGNED_ORDER"
+        string original_filename "Filename as published by the Court registry"
+        string storage_path "Local filesystem path (uploads/legal_judgments/)"
+        string source_url "Authoritative public judicial repository URL"
+        bigint file_size_bytes "Exact byte size"
+        string mime_type "application/pdf"
+        string sha256_hash "Cryptographic integrity digest"
+        tinyint is_verified "1 = Verified authentic document"
+    }
+
+    JUDGMENT_CITATIONS {
+        int id PK "Primary Key"
+        int judgment_id FK "Foreign Key -> LEGAL_JUDGMENTS"
+        string reporter_name "SCC, SCR, AIR, SCALE, Judis"
+        string citation_string "Formatted reporter volume and page"
+        string page_number "Page reference in reporter"
+        int year "Reporting year"
+    }

@@ -1,0 +1,93 @@
+flowchart TB
+    %% =========================================================================================
+    %% JUDICIARY INFORMATION SYSTEM (JIS) - FUTURE ENTERPRISE SYSTEM ARCHITECTURE
+    %% Comprehensive Planned Architecture: E-Courts Lifecycle + Active Legal Repository
+    %% =========================================================================================
+
+    subgraph PORTALS["1. User & Persona Access Portals [PLANNED / FUTURE SCOPE]"]
+        P_PUBLIC["🏛️ Public & Citizen Portal\n• Precedent Search\n• Public Cause List\n• Case Status Tracking"]
+        P_ADVOCATE["⚖️ Advocate Portal\n• E-Filing & Defect Curing\n• E-Vakalatnama Management\n• Daily Hearing Schedule"]
+        P_BENCH["👨‍⚖️ Judicial Bench Portal\n• Digital Courtroom Record\n• Daily Cause List Proceedings\n• Order & Judgment Signing"]
+        P_REGISTRY["📋 Registry & Scrutiny Portal\n• E-Filing Verification\n• Defect Raising & Approval\n• Roster & Bench Allocation"]
+    end
+
+    subgraph GATEWAY["2. Security & API Gateway Layer [PLANNED / FUTURE SCOPE]"]
+        API_GW["🛡️ API Gateway & WAF\n• Rate Limiting & TLS Termination\n• Request Routing & Circuit Breaking"]
+        AUTH_RBAC["🔐 IAM & RBAC Engine\n• Multi-Factor Authentication\n• Role Permissions (Judge, Advocate, Registry)"]
+        AUDIT_INTERCEPTOR["📜 Audit Trail Interceptor\n• Immutable Transaction Log Capture"]
+        
+        API_GW --> AUTH_RBAC
+        API_GW --> AUDIT_INTERCEPTOR
+    end
+
+    subgraph MICROSERVICES["3. Core Microservices & Modular Business Logic [PLANNED / FUTURE SCOPE]"]
+        MS_FILING["📁 E-Filing & Scrutiny Service\n• Pleading Validation\n• Defect Tracking\n• CNR Number Generation"]
+        MS_ROSTER["🏛️ Court & Roster Service\n• Bench Constitution\n• Courtroom Allocation\n• Judge Assignment"]
+        MS_HEARINGS["📅 Hearing & Cause List Service\n• Daily List Scheduling\n• Adjournment Management\n• Court Master Notes"]
+        MS_ORDERS["📝 Orders & Bail Service\n• Interim Injunctions\n• Bail Orders\n• Digital Signature Attestation"]
+        MS_NOTIFY["🔔 Notification Dispatcher\n• SMS / WhatsApp / Email\n• Cause List & Order Alerts"]
+        MS_AUDIT["🛡️ Compliance & Audit Logger\n• Chain-of-Custody Logging\n• IP & Identity Verification"]
+    end
+
+    subgraph REPO_SERVICE["4. Statutory & Judicial Repository Engine [ACTIVE TODAY IN PRODUCTION]"]
+        MS_REPO["📚 Legal Repository & Concordance Engine\n• 105 Genuine Verified Judgments\n• 2,419 Statutory Sections & Articles\n• 149 Transition Concordance Mappings (Old ➔ New Codes)\n• Verified PDF Judgment Streaming Pipeline"]
+    end
+
+    subgraph DATA_TIER["5. Persistence & Storage Tier"]
+        subgraph DB_OPERATIONAL["🗄️ Operational Relational Store [PLANNED / FUTURE SCOPE]"]
+            DB_CASES["cases, case_filings, case_parties\nhearings, orders, benches, judges, advocates"]
+            DB_AUDIT["audit_logs, notifications, users, roles"]
+        end
+
+        subgraph DB_REPOSITORY["🏛️ Active Production Legal Knowledge Store [IMPLEMENTED TODAY]"]
+            DB_ACTS["legal_acts, legal_chapters, legal_sections\nlegal_section_relations, legal_procedural_classifications"]
+            DB_PRECEDENTS["legal_judgments, judgment_legal_sections\njudgment_documents, judgment_citations"]
+        end
+
+        subgraph VAULT["📂 Secure Document & PDF Vault"]
+            VAULT_PLEADINGS["Case Pleadings & Signed Orders [PLANNED]\nEncrypted Object Store"]
+            VAULT_PDFS["uploads/legal_judgments/ [IMPLEMENTED TODAY]\n98 Authentic Supreme Court Judgment PDFs"]
+        end
+
+        subgraph SEARCH_CLUSTER["🔍 Full-Text & Analytics Cluster [PLANNED / FUTURE SCOPE]"]
+            ELASTIC["Elasticsearch / OpenSearch\n• Precedent Ratio Index\n• Case Docket Index"]
+        end
+    end
+
+    %% Wiring: Portals to Gateway
+    P_PUBLIC --> API_GW
+    P_ADVOCATE --> API_GW
+    P_BENCH --> API_GW
+    P_REGISTRY --> API_GW
+
+    %% Wiring: Gateway to Services
+    API_GW --> MS_FILING
+    API_GW --> MS_ROSTER
+    API_GW --> MS_HEARINGS
+    API_GW --> MS_ORDERS
+    API_GW --> MS_REPO
+    API_GW --> MS_NOTIFY
+    API_GW --> MS_AUDIT
+
+    %% Workflow Interconnections
+    MS_FILING -->|Generates Registered Case| MS_ROSTER
+    MS_ROSTER -->|Assigns Bench & Court| MS_HEARINGS
+    MS_HEARINGS -->|Produces Proceedings & Orders| MS_ORDERS
+    MS_ORDERS -->|Trigger Alerts| MS_NOTIFY
+    MS_ORDERS -->|On Final Disposal: Adds Landmark Precedent| MS_REPO
+
+    %% Services to Data Tier
+    MS_FILING --> DB_CASES
+    MS_FILING --> VAULT_PLEADINGS
+    MS_ROSTER --> DB_CASES
+    MS_HEARINGS --> DB_CASES
+    MS_ORDERS --> DB_CASES
+    MS_ORDERS --> VAULT_PLEADINGS
+    MS_NOTIFY --> DB_AUDIT
+    MS_AUDIT --> DB_AUDIT
+
+    %% Active Repository to Data Tier
+    MS_REPO --> DB_ACTS
+    MS_REPO --> DB_PRECEDENTS
+    MS_REPO --> VAULT_PDFS
+    MS_REPO -.->|Feeds Indexed Ratios| ELASTIC

@@ -1,0 +1,363 @@
+erDiagram
+    %% =========================================================================================
+    %% JUDICIARY INFORMATION SYSTEM (JIS) - FUTURE ENTERPRISE ER DIAGRAM
+    %% Comprehensive Architecture: E-Courts Lifecycle + Active Legal Repository
+    %%
+    %% LEGEND:
+    %% [ACTIVE PRODUCTION REPOSITORY]           -> Fully Implemented & In Production Today
+    %% [PLANNED / FUTURE SCOPE — NOT CURRENTLY IMPLEMENTED] -> Architected for Future Phases
+    %% =========================================================================================
+
+    %% --- IDENTITY & RBAC (PLANNED) ---
+    USERS_PLANNED ||--o{ USER_ROLES_PLANNED : "assigned_role (1:N)"
+    ROLES_PLANNED ||--o{ USER_ROLES_PLANNED : "granted_to (1:N)"
+    USERS_PLANNED ||--o| JUDGES_PLANNED : "judicial_identity (1:1)"
+    USERS_PLANNED ||--o| REGISTRARS_PLANNED : "registry_identity (1:1)"
+    USERS_PLANNED ||--o| ADVOCATES_PLANNED : "bar_counsel_identity (1:1)"
+    USERS_PLANNED ||--o{ NOTIFICATIONS_PLANNED : "receives_alert (1:N)"
+    USERS_PLANNED ||--o{ AUDIT_LOGS_PLANNED : "actor_audit_trail (1:N)"
+
+    %% --- COURT & BENCH HIERARCHY (PLANNED) ---
+    COURTS_PLANNED ||--o{ BENCHES_PLANNED : "constitutes_bench (1:N)"
+    COURTS_PLANNED ||--o{ JUDGES_PLANNED : "roster_tenure (1:N)"
+    COURTS_PLANNED ||--o{ REGISTRARS_PLANNED : "administrative_post (1:N)"
+    BENCHES_PLANNED ||--o{ BENCH_JUDGES_ROSTER_PLANNED : "bench_coram (1:N)"
+    JUDGES_PLANNED ||--o{ BENCH_JUDGES_ROSTER_PLANNED : "sits_in_bench (1:N)"
+
+    %% --- CASE FILING & PROCEEDINGS (PLANNED) ---
+    USERS_PLANNED ||--o{ CASE_FILINGS_PLANNED : "lodged_by_advocate_litigant (1:N)"
+    REGISTRARS_PLANNED ||--o{ CASE_FILINGS_PLANNED : "scrutinized_by (1:N)"
+    COURTS_PLANNED ||--o{ CASE_FILINGS_PLANNED : "filing_registry (1:N)"
+    CASE_FILINGS_PLANNED ||--o| CASES_PLANNED : "converted_to_case (1:1)"
+
+    COURTS_PLANNED ||--o{ CASES_PLANNED : "judicial_jurisdiction (1:N)"
+    BENCHES_PLANNED ||--o{ CASES_PLANNED : "allocated_bench (1:N)"
+    CASES_PLANNED ||--o{ CASE_PARTIES_LITIGANTS_PLANNED : "case_litigants (1:N)"
+    ADVOCATES_PLANNED ||--o{ CASE_PARTIES_LITIGANTS_PLANNED : "represents (1:N)"
+    CASES_PLANNED ||--o{ CASE_DOCUMENTS_PLANNED : "case_record_docket (1:N)"
+
+    CASES_PLANNED ||--o{ HEARINGS_PLANNED : "cause_list_proceedings (1:N)"
+    BENCHES_PLANNED ||--o{ HEARINGS_PLANNED : "conducts_hearing (1:N)"
+    HEARINGS_PLANNED ||--o{ ORDERS_PLANNED : "interim_or_substantive_order (1:N)"
+    JUDGES_PLANNED ||--o{ ORDERS_PLANNED : "signed_pronounced_by (1:N)"
+
+    %% --- INTEGRATION BRIDGE: CASE DISPOSITION -> ACTIVE REPOSITORY ---
+    CASES_PLANNED ||--o| LEGAL_JUDGMENTS : "disposition_precedent_record (1:1)"
+    JUDGES_PLANNED ||--o{ LEGAL_JUDGMENTS : "authored_judgment (1:N)"
+
+    %% --- ACTIVE PRODUCTION LEGAL REPOSITORY (IMPLEMENTED TODAY) ---
+    LEGAL_JUDGMENTS ||--o{ JUDGMENT_DOCUMENTS : "authenticated_by (1:N)"
+    LEGAL_JUDGMENTS ||--o{ JUDGMENT_CITATIONS : "reported_as (1:N)"
+    LEGAL_JUDGMENTS ||--o{ JUDGMENT_LEGAL_SECTIONS : "interprets (1:N)"
+    LEGAL_SECTIONS ||--o{ JUDGMENT_LEGAL_SECTIONS : "cited_in (1:N)"
+
+    LEGAL_ACTS ||--o{ LEGAL_CHAPTERS : "contains (1:N)"
+    LEGAL_ACTS ||--o{ LEGAL_SECTIONS : "enacts (1:N)"
+    LEGAL_CHAPTERS ||--o{ LEGAL_SECTIONS : "groups (1:N)"
+    LEGAL_SECTIONS ||--o{ LEGAL_SECTION_RELATIONS : "from_section (1:N)"
+    LEGAL_SECTIONS ||--o{ LEGAL_SECTION_RELATIONS : "to_section (1:N)"
+    LEGAL_SECTIONS ||--o| LEGAL_PROCEDURAL_CLASSIFICATIONS : "specifies (1:1)"
+
+    %% =========================================================================
+    %% ENTITY DEFINITIONS & SCHEMAS
+    %% =========================================================================
+
+    %% [PLANNED] USERS
+    USERS_PLANNED {
+        int id PK "Primary Key"
+        string username "Unique login username"
+        string email "Official / verified email"
+        string mobile_phone "2FA mobile phone number"
+        string user_type "JUDGE, ADVOCATE, REGISTRAR, LITIGANT, CLERK"
+        string account_status "ACTIVE, SUSPENDED, PENDING_VERIFICATION"
+        datetime created_at "Registration timestamp"
+    }
+
+    %% [PLANNED] ROLES
+    ROLES_PLANNED {
+        int id PK "Primary Key"
+        string role_code "ROLE_JUDICIAL_OFFICER, ROLE_BAR_ADVOCATE, ROLE_REGISTRY"
+        string role_name "Human-readable role name"
+        text permissions "JSON array of RBAC permission flags"
+    }
+
+    %% [PLANNED] USER_ROLES
+    USER_ROLES_PLANNED {
+        int id PK "Primary Key"
+        int user_id FK "Foreign Key -> USERS_PLANNED"
+        int role_id FK "Foreign Key -> ROLES_PLANNED"
+        datetime assigned_at "Role assignment timestamp"
+    }
+
+    %% [PLANNED] COURTS
+    COURTS_PLANNED {
+        int id PK "Primary Key"
+        string court_code "National Judicial Code (e.g. SC-IND, HC-DEL)"
+        string name "Full court name"
+        string tier "SUPREME_COURT, HIGH_COURT, DISTRICT_SESSIONS_COURT"
+        string jurisdiction_state "State / Union Territory / All India"
+        string physical_address "Principal seat location"
+        boolean is_active "Operational status"
+    }
+
+    %% [PLANNED] BENCHES
+    BENCHES_PLANNED {
+        int id PK "Primary Key"
+        int court_id FK "Foreign Key -> COURTS_PLANNED"
+        string bench_name "Courtroom No. 1 / Constitution Bench"
+        string bench_type "CONSTITUTION, DIVISION, SINGLE_JUDGE, VACATION"
+        int courtroom_number "Physical / Virtual Courtroom No."
+        boolean is_active "Active bench in current roster"
+    }
+
+    %% [PLANNED] JUDGES
+    JUDGES_PLANNED {
+        int id PK "Primary Key"
+        int user_id FK "Foreign Key -> USERS_PLANNED"
+        int court_id FK "Foreign Key -> COURTS_PLANNED"
+        string full_name "Hon'ble Justice / Magistrate Name"
+        string designation "CHIEF_JUSTICE, PUISNE_JUDGE, DISTRICT_JUDGE"
+        date appointment_date "Date of swearing in"
+        date retirement_date "Superannuation date"
+        string bar_council_id "Prior bar enrollment reference"
+    }
+
+    %% [PLANNED] BENCH_JUDGES_ROSTER
+    BENCH_JUDGES_ROSTER_PLANNED {
+        int id PK "Primary Key"
+        int bench_id FK "Foreign Key -> BENCHES_PLANNED"
+        int judge_id FK "Foreign Key -> JUDGES_PLANNED"
+        boolean is_presiding "True if Presiding Judge of the Bench"
+        date roster_start_date "Roster allocation start"
+        date roster_end_date "Roster allocation end"
+    }
+
+    %% [PLANNED] REGISTRARS
+    REGISTRARS_PLANNED {
+        int id PK "Primary Key"
+        int user_id FK "Foreign Key -> USERS_PLANNED"
+        int court_id FK "Foreign Key -> COURTS_PLANNED"
+        string officer_code "Registry employee / cadre identification"
+        string designation "REGISTRAR_JUDICIAL, REGISTRAR_LISTING, REGISTRAR_ADMIN"
+        string branch "Filing & Scrutiny, Listing, Decrees"
+    }
+
+    %% [PLANNED] ADVOCATES
+    ADVOCATES_PLANNED {
+        int id PK "Primary Key"
+        int user_id FK "Foreign Key -> USERS_PLANNED"
+        string bar_council_reg_no "Bar Council Enrollment (e.g. D/1428/2012)"
+        string state_bar_council "State Bar Council Jurisdiction"
+        string chamber_firm "Chamber address / Law Firm association"
+        string advocate_type "SENIOR_ADVOCATE, ADVOCATE_ON_RECORD, ADVOCATE"
+        boolean is_aor "Qualified Advocate-on-Record (Supreme Court)"
+    }
+
+    %% [PLANNED] CASE_FILINGS
+    CASE_FILINGS_PLANNED {
+        int id PK "Primary Key"
+        string filing_token "Unique E-Filing Token (e.g. EF-2026-00492)"
+        int court_id FK "Foreign Key -> COURTS_PLANNED"
+        int filed_by_user_id FK "Foreign Key -> USERS_PLANNED"
+        datetime filing_timestamp "Time of online submission"
+        string case_category "CIVIL, CRIMINAL, WRIT, SPECIAL_LEAVE, APPEAL"
+        string scrutiny_status "PENDING, DEFECTS_RAISED, CURED, PASSED, REJECTED"
+        int scrutinized_by_registrar_id FK "Foreign Key -> REGISTRARS_PLANNED"
+        text defect_notes "List of registry objections"
+    }
+
+    %% [PLANNED] CASES
+    CASES_PLANNED {
+        int id PK "Primary Key"
+        int filing_id FK "Foreign Key -> CASE_FILINGS_PLANNED"
+        int court_id FK "Foreign Key -> COURTS_PLANNED"
+        int bench_id FK "Foreign Key -> BENCHES_PLANNED"
+        string cnr_number "Case Natural Record No. (e.g. DLHC010049212026)"
+        string case_type "WP(C), CRLA, SLP(Crl), CS(OS)"
+        string case_number "Official Judicial Registration Number"
+        int filing_year "Registration year"
+        string title "Petitioner vs Respondent"
+        string current_stage "PRELIMINARY_HEARING, NOTICE, EVIDENCE, ARGUMENTS, DISPOSED"
+        string disposal_nature "DISMISSED, ALLOWED, SETTLED, TRANSFERRED"
+        date instituted_date "Date case formally numbered"
+    }
+
+    %% [PLANNED] CASE_PARTIES_LITIGANTS
+    CASE_PARTIES_LITIGANTS_PLANNED {
+        int id PK "Primary Key"
+        int case_id FK "Foreign Key -> CASES_PLANNED"
+        string party_role "PETITIONER, RESPONDENT, APPELLANT, DEFENDANT, INTERVENER"
+        int party_sequence "1st Party, 2nd Party, etc."
+        string full_name "Individual or Entity Name"
+        string legal_entity_type "INDIVIDUAL, GOVT_OF_INDIA, STATE_GOVT, CORPORATE"
+        int advocate_id FK "Foreign Key -> ADVOCATES_PLANNED"
+        string contact_email "Secure notification email"
+    }
+
+    %% [PLANNED] CASE_DOCUMENTS
+    CASE_DOCUMENTS_PLANNED {
+        int id PK "Primary Key"
+        int case_id FK "Foreign Key -> CASES_PLANNED"
+        string document_category "PETITION, AFFIDAVIT, VAKALATNAMA, EXHIBIT, COUNTER"
+        string title "Descriptive title of filed pleading"
+        string file_storage_uri "Encrypted document store path"
+        string sha256_checksum "Integrity hash"
+        int uploaded_by_user_id FK "Foreign Key -> USERS_PLANNED"
+        boolean is_digitally_signed "Digital signature verification flag"
+        datetime uploaded_at "Timestamp"
+    }
+
+    %% [PLANNED] HEARINGS
+    HEARINGS_PLANNED {
+        int id PK "Primary Key"
+        int case_id FK "Foreign Key -> CASES_PLANNED"
+        int bench_id FK "Foreign Key -> BENCHES_PLANNED"
+        date hearing_date "Listed date on Daily Cause List"
+        int cause_list_item_number "Item serial number on daily list"
+        string hearing_purpose "ADMISSION, INTERIM_RELIEF, FINAL_DISPOSAL"
+        string status "LISTED, PART_HEARD, ADJOURNED, CONCLUDED"
+        text proceeding_summary "Court Master daily record of proceedings"
+        date next_hearing_date "Next adjourned date if pending"
+    }
+
+    %% [PLANNED] ORDERS
+    ORDERS_PLANNED {
+        int id PK "Primary Key"
+        int case_id FK "Foreign Key -> CASES_PLANNED"
+        int hearing_id FK "Foreign Key -> HEARINGS_PLANNED"
+        int signed_by_judge_id FK "Foreign Key -> JUDGES_PLANNED"
+        string order_type "INTERIM_INJUNCTION, BAIL, DIRECTION, NOTICE, FINAL"
+        date order_date "Date of order delivery"
+        text operative_order "Operative directions issued by Bench"
+        string order_pdf_uri "Signed certified order PDF copy"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] LEGAL_JUDGMENTS
+    LEGAL_JUDGMENTS {
+        int id PK "Primary Key"
+        string court_tier "Supreme Court of India, High Court"
+        string court_name "Full judicial body name"
+        string case_name "Authoritative Title (e.g. Kesavananda Bharati)"
+        string case_number "Official judicial registration number"
+        string citation "Standard legal citation (SCC, SCR, AIR)"
+        string neutral_citation "Indian Neutral Citation System"
+        datetime judgment_date "Pronouncement date"
+        text bench_judges "Bench coram composition"
+        int bench_strength "Bench judge count"
+        string domain "Constitutional, Criminal, Civil, Administrative"
+        text legal_issue "Core questions of law presented"
+        text key_ratio "Ratio decidendi"
+        text key_holding "Operative holding"
+        tinyint is_landmark "1 = Landmark precedence"
+        tinyint is_synthetic "STRICTLY 0 - Genuine verified records only"
+        string record_provenance "STRICTLY 'REAL_VERIFIED'"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] JUDGMENT_DOCUMENTS
+    JUDGMENT_DOCUMENTS {
+        int id PK "Primary Key"
+        int judgment_id FK "Foreign Key -> LEGAL_JUDGMENTS"
+        string document_type "AUTHENTIC_JUDGMENT_PDF"
+        string original_filename "Official Registry PDF Filename"
+        string storage_path "uploads/legal_judgments/"
+        string source_url "Supreme Court / High Court portal URL"
+        bigint file_size_bytes "Exact byte size"
+        string mime_type "application/pdf"
+        string sha256_hash "SHA-256 cryptographic digest"
+        tinyint is_verified "1 = Verified authentic judgment"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] JUDGMENT_CITATIONS
+    JUDGMENT_CITATIONS {
+        int id PK "Primary Key"
+        int judgment_id FK "Foreign Key -> LEGAL_JUDGMENTS"
+        string reporter_name "SCC, SCR, AIR, SCALE, Judis"
+        string citation_string "Formatted reporter volume and page"
+        string page_number "Page reference"
+        int year "Reporting year"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] JUDGMENT_LEGAL_SECTIONS
+    JUDGMENT_LEGAL_SECTIONS {
+        int id PK "Primary Key"
+        int judgment_id FK "Foreign Key -> LEGAL_JUDGMENTS"
+        int section_id FK "Foreign Key -> LEGAL_SECTIONS"
+        string relevance_nature "Interpreted & Applied, Distinguished, Struck Down"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] LEGAL_ACTS
+    LEGAL_ACTS {
+        int id PK "Primary Key"
+        string code "Act identifier code (IPC, BNS, CrPC, BNSS, BSA)"
+        string title "Full legislative title"
+        string short_title "Standard short title"
+        int enactment_year "Enactment year"
+        string act_type "Substantive, Procedural, Constitutional"
+        string status "ACTIVE, REPEALED, TRANSITIONAL"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] LEGAL_CHAPTERS
+    LEGAL_CHAPTERS {
+        int id PK "Primary Key"
+        int act_id FK "Foreign Key -> LEGAL_ACTS"
+        string chapter_number "Chapter number"
+        string chapter_title "Subject matter title"
+        string start_section "First section"
+        string end_section "Last section"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] LEGAL_SECTIONS
+    LEGAL_SECTIONS {
+        int id PK "Primary Key"
+        int act_id FK "Foreign Key -> LEGAL_ACTS"
+        int chapter_id FK "Foreign Key -> LEGAL_CHAPTERS"
+        string section_number "Section number (e.g. Sec 302, Sec 101)"
+        string section_title "Section marginal title"
+        text section_content "Statutory wording"
+        string legal_nature "Penal, Procedural, Constitutional"
+        int section_order "Order within act"
+        string status "IN_FORCE, REPEALED, SUPERSEDED"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] LEGAL_SECTION_RELATIONS
+    LEGAL_SECTION_RELATIONS {
+        int id PK "Primary Key"
+        int from_section_id FK "Old / Source section (e.g. IPC s.302)"
+        int to_section_id FK "New / Target section (e.g. BNS s.101)"
+        string relation_type "REPLACED_BY, CONCORDANCE, TRANSITIONAL"
+        text notes "Comparative scope analysis"
+        string source_name "Statutory concordance table"
+    }
+
+    %% [ACTIVE PRODUCTION REPOSITORY] LEGAL_PROCEDURAL_CLASSIFICATIONS
+    LEGAL_PROCEDURAL_CLASSIFICATIONS {
+        int id PK "Primary Key"
+        int section_id FK "Foreign Key -> LEGAL_SECTIONS (1:1)"
+        string bailable_status "Bailable / Non-Bailable"
+        string cognizable_status "Cognizable / Non-Cognizable"
+        string compoundable_status "Compoundable / Non-Compoundable"
+        string triable_by "Court of Session, Magistrate"
+    }
+
+    %% [PLANNED] NOTIFICATIONS
+    NOTIFICATIONS_PLANNED {
+        int id PK "Primary Key"
+        int user_id FK "Foreign Key -> USERS_PLANNED"
+        string channel "SMS, EMAIL, IN_APP, WHATSAPP"
+        string title "Notification subject / alert type"
+        text message_content "Cause list listing, defect alert, order published"
+        boolean is_read "Read status"
+        datetime dispatched_at "Dispatch timestamp"
+    }
+
+    %% [PLANNED] AUDIT_LOGS
+    AUDIT_LOGS_PLANNED {
+        int id PK "Primary Key"
+        int user_id FK "Foreign Key -> USERS_PLANNED"
+        string action_code "CASE_FILED, ORDER_UPLOADED, STATUS_CHANGED, SCRUTINY_PASSED"
+        string target_entity "CASES, ORDERS, PLEADINGS, HEARINGS"
+        int target_id "Target entity ID"
+        string ip_address "Origin IP address"
+        text metadata "JSON audit delta payload"
+        datetime timestamp "Immutable audit timestamp"
+    }

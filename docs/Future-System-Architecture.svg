@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 1580" width="2500" height="1580">
+    <defs>
+        <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+            <feOffset dx="0" dy="3" />
+            <feComponentTransfer><feFuncA type="linear" slope="0.08" /></feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <linearGradient id="futArchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0f172a" />
+            <stop offset="100%" stop-color="#1e1b4b" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Background Canvas -->
+    <rect width="2500" height="1580" fill="#f8fafc" />
+    
+    <!-- Header Banner -->
+    <rect x="0" y="0" width="2500" height="105" fill="url(#futArchGrad)" />
+    <line x1="0" y1="105" x2="2500" y2="105" stroke="#f59e0b" stroke-width="3" />
+    
+    <text x="50" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" fill="#f8fafc">
+        JUDICIARY INFORMATION SYSTEM (JIS) — FUTURE ENTERPRISE SYSTEM ARCHITECTURE
+    </text>
+    <text x="50" y="78" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#cbd5e1">
+        Target Architecture: End-to-End E-Courts Lifecycle Integrated with Active Statutory &amp; Precedent Repository
+    </text>
+    
+    <!-- Legend -->
+    <rect x="1560" y="28" width="440" height="48" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
+    <circle cx="1585" cy="52" r="6" fill="#38bdf8" />
+    <text x="1605" y="46" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">ACTIVE IN PRODUCTION TODAY</text>
+    <text x="1605" y="64" font-family="-apple-system, sans-serif" font-size="10.5" fill="#94a3b8">Repository Engine, Real Verified Judgments &amp; PDFs</text>
+    
+    <rect x="2020" y="28" width="440" height="48" rx="6" fill="#451a03" stroke="#f59e0b" stroke-width="1.5" />
+    <circle cx="2045" cy="52" r="6" fill="#f59e0b" />
+    <text x="2065" y="46" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">PLANNED / FUTURE SCOPE</text>
+    <text x="2065" y="64" font-family="-apple-system, sans-serif" font-size="10.5" fill="#fed7aa">Target Modules (Not Currently Implemented in Demo)</text>
+    
+
+    <!-- LAYER 1 -->
+    <rect x="50" y="130" width="2400" height="230" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 142 Q 50 130 62 130 L 2438 130 Q 2450 130 2450 142 L 2450 166 L 50 166 Z" fill="#b45309" />
+    <text x="70" y="155" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+        1. USER &amp; PERSONA ACCESS PORTALS [PLANNED / FUTURE SCOPE — NOT CURRENTLY IMPLEMENTED]
+    </text>
+    
+
+        <rect x="70" y="180" width="560" height="160" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <rect x="70" y="180" width="560" height="28" rx="8" fill="#b45309" />
+        <text x="80" y="198" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">🏛️ Citizen &amp; Litigant Portal</text>
+        
+<text x="80" y="228" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Public Case Status by CNR / Case No.</text>
+<text x="80" y="250" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Daily Cause List View by Courtroom</text>
+<text x="80" y="272" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Constitutional &amp; Landmark Precedent Search</text>
+<text x="80" y="294" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Certified Order &amp; Judgment Download</text>
+
+        <rect x="670" y="180" width="560" height="160" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <rect x="670" y="180" width="560" height="28" rx="8" fill="#c2410c" />
+        <text x="680" y="198" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">⚖️ Advocate &amp; Bar Portal</text>
+        
+<text x="680" y="228" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Online E-Filing &amp; Defect Curing Desk</text>
+<text x="680" y="250" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Digital Vakalatnama &amp; Appearance Registry</text>
+<text x="680" y="272" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Personalized Daily Hearing Board &amp; Calendar</text>
+<text x="680" y="294" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Electronic Pleading Docket Submission</text>
+
+        <rect x="1270" y="180" width="560" height="160" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <rect x="1270" y="180" width="560" height="28" rx="8" fill="#b45309" />
+        <text x="1280" y="198" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">👨‍⚖️ Judicial Bench Portal</text>
+        
+<text x="1280" y="228" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Digital Courtroom Case File (E-Docket)</text>
+<text x="1280" y="250" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Daily Cause List Proceedings &amp; Notes</text>
+<text x="1280" y="272" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Interim Injunction &amp; Bail Order Signing</text>
+<text x="1280" y="294" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Final Judgment Pronouncement Workflow</text>
+
+        <rect x="1870" y="180" width="560" height="160" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <rect x="1870" y="180" width="560" height="28" rx="8" fill="#c2410c" />
+        <text x="1880" y="198" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">📋 Registry &amp; Scrutiny Portal</text>
+        
+<text x="1880" y="228" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• E-Filing Scrutiny &amp; Defect Checking</text>
+<text x="1880" y="250" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• CNR Number Generation &amp; Registration</text>
+<text x="1880" y="272" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Roster Allocation &amp; Bench Constitution</text>
+<text x="1880" y="294" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Certified Copy Issuance Desk</text>
+
+    <!-- LAYER 2 -->
+    <rect x="50" y="380" width="2400" height="150" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 392 Q 50 380 62 380 L 2438 380 Q 2450 380 2450 392 L 2450 416 L 50 416 Z" fill="#9a3412" />
+    <text x="70" y="405" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+        2. SECURITY, IDENTITY &amp; API GATEWAY LAYER [PLANNED / FUTURE SCOPE — NOT CURRENTLY IMPLEMENTED]
+    </text>
+    
+
+        <rect x="70" y="430" width="760" height="85" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <text x="84" y="460" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#9a3412">🛡️ API Gateway &amp; WAF</text>
+        <text x="84" y="485" font-family="-apple-system, sans-serif" font-size="11" fill="#475569">Rate limiting, TLS 1.3 termination, CORS &amp; DDOS shield</text>
+        
+
+        <rect x="870" y="430" width="760" height="85" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <text x="884" y="460" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#9a3412">🔐 IAM &amp; Role-Based Access Control (RBAC)</text>
+        <text x="884" y="485" font-family="-apple-system, sans-serif" font-size="11" fill="#475569">Judges, Advocates, Registrars, Litigants, 2FA Auth &amp; Audit Tokens</text>
+        
+
+        <rect x="1670" y="430" width="760" height="85" rx="8" fill="#ffffff" stroke="#fef3c7" stroke-width="1.2" />
+        <text x="1684" y="460" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#9a3412">📜 Cryptographic Audit Interceptor</text>
+        <text x="1684" y="485" font-family="-apple-system, sans-serif" font-size="11" fill="#475569">Digital Signature (DSC) verification, SHA-256 chain-of-custody logging</text>
+        
+
+    <!-- LAYER 3 -->
+    <rect x="50" y="550" width="2400" height="470" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 562 Q 50 550 62 550 L 2438 550 Q 2450 550 2450 562 L 2450 586 L 50 586 Z" fill="#1e293b" />
+    <text x="70" y="575" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+        3. MODULAR APPLICATION SERVICES (PLANNED E-COURTS WORKFLOW SERVICES + ACTIVE PRODUCTION REPOSITORY)
+    </text>
+    
+
+        <rect x="70" y="600" width="560" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="70" y="600" width="560" height="28" rx="8" fill="#b45309" />
+        <text x="80" y="618" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">📁 E-Filing &amp; Scrutiny Engine</text>
+        <rect x="553" y="605" width="71" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="557" y="618" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">[PLANNED]</text>
+        
+<text x="80" y="648" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Pleading verification &amp; defect checklist</text>
+<text x="80" y="670" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Digital Vakalatnama attestation</text>
+<text x="80" y="692" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• CNR registration &amp; tracking number</text>
+
+        <rect x="670" y="600" width="560" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="670" y="600" width="560" height="28" rx="8" fill="#c2410c" />
+        <text x="680" y="618" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">🏛️ Court &amp; Roster Service</text>
+        <rect x="1153" y="605" width="71" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="1157" y="618" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">[PLANNED]</text>
+        
+<text x="680" y="648" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Bench constitution (Single, Division, Full)</text>
+<text x="680" y="670" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Judge allocation &amp; tenure management</text>
+<text x="680" y="692" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Courtroom mapping &amp; roster periods</text>
+
+        <rect x="1270" y="600" width="560" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1270" y="600" width="560" height="28" rx="8" fill="#b45309" />
+        <text x="1280" y="618" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">📅 Hearing &amp; Cause List Service</text>
+        <rect x="1753" y="605" width="71" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="1757" y="618" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">[PLANNED]</text>
+        
+<text x="1280" y="648" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Automated daily cause list generation</text>
+<text x="1280" y="670" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Adjournment &amp; listing scheduler</text>
+<text x="1280" y="692" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Real-time Court Master proceedings entry</text>
+
+        <rect x="1870" y="600" width="560" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1870" y="600" width="560" height="28" rx="8" fill="#c2410c" />
+        <text x="1880" y="618" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">📝 Orders &amp; Bail Service</text>
+        <rect x="2353" y="605" width="71" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="2357" y="618" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">[PLANNED]</text>
+        
+<text x="1880" y="648" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Interim injunction orders drafting</text>
+<text x="1880" y="670" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Bail bonds &amp; conditions recording</text>
+<text x="1880" y="692" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Cryptographically signed order generation</text>
+
+        <rect x="70" y="780" width="560" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="70" y="780" width="560" height="28" rx="8" fill="#9a3412" />
+        <text x="80" y="798" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">🔔 Notification Engine</text>
+        <rect x="553" y="785" width="71" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="557" y="798" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">[PLANNED]</text>
+        
+<text x="80" y="828" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• SMS / WhatsApp / Email dispatchers</text>
+<text x="80" y="850" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Next hearing alerts for litigants</text>
+<text x="80" y="872" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Defect notification to advocates</text>
+
+        <rect x="670" y="780" width="560" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="670" y="780" width="560" height="28" rx="8" fill="#7c2d12" />
+        <text x="680" y="798" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">🛡️ Audit &amp; Compliance Logger</text>
+        <rect x="1153" y="785" width="71" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="1157" y="798" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">[PLANNED]</text>
+        
+<text x="680" y="828" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Immutable log stream for filings &amp; orders</text>
+<text x="680" y="850" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• User IP, action delta &amp; state capture</text>
+<text x="680" y="872" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Forensic chain-of-custody compliance</text>
+
+        <rect x="1270" y="780" width="1160" height="160" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1270" y="780" width="1160" height="28" rx="8" fill="#065f46" />
+        <text x="1280" y="798" font-family="-apple-system, sans-serif" font-size="11.5" font-weight="700" fill="#ffffff">📚 Statutory &amp; Precedent Repository Engine</text>
+        <rect x="2220" y="785" width="204" height="18" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="2224" y="798" font-family="-apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff">🟢 ACTIVE TODAY IN PRODUCTION</text>
+        
+<text x="1280" y="828" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• 105 Real Verified Precedents (Kesavananda, Puttaswamy, etc.)</text>
+<text x="1280" y="850" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• 2,419 Statutory Sections across Old &amp; New Criminal Codes</text>
+<text x="1280" y="872" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• 149 Transition Concordance Mappings (IPC ➔ BNS, etc.)</text>
+<text x="1280" y="894" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Verified PDF Streaming Pipeline (98 Authentic Documents)</text>
+<text x="1280" y="916" font-family="-apple-system, sans-serif" font-size="10.5" fill="#334155">• Case overview, issues, holdings &amp; 5-7 legal findings</text>
+
+    <!-- LAYER 4 -->
+    <rect x="50" y="1040" width="2400" height="500" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+    <path d="M 50 1052 Q 50 1040 62 1040 L 2438 1040 Q 2450 1040 2450 1052 L 2450 1076 L 50 1076 Z" fill="#0f766e" />
+    <text x="70" y="1065" font-family="-apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff">
+        4. PERSISTENCE &amp; STORAGE ARCHITECTURE (PLANNED E-COURTS STORES + ACTIVE PRODUCTION LEGAL REPOSITORY)
+    </text>
+    
+
+        <rect x="70" y="1090" width="560" height="420" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="70" y="1090" width="560" height="32" rx="8" fill="#b45309" />
+        <text x="82" y="1111" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🗄️ Planned Operational DB</text>
+        <rect x="567" y="1096" width="57" height="20" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="571" y="1110" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">PLANNED</text>
+        
+<text x="82" y="1158" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• cases, case_filings, case_parties</text>
+<text x="82" y="1184" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• hearings, orders, court_benches</text>
+<text x="82" y="1210" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• users, roles, advocates, judges</text>
+<text x="82" y="1236" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• notifications, audit_logs</text>
+<text x="82" y="1262" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• OLTP Case lifecycle transactions</text>
+
+        <rect x="670" y="1090" width="560" height="420" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="670" y="1090" width="560" height="32" rx="8" fill="#065f46" />
+        <text x="682" y="1111" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🏛️ Active Legal Knowledge DB (jis_db)</text>
+        <rect x="1118" y="1096" width="106" height="20" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="1122" y="1110" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">🟢 ACTIVE TODAY</text>
+        
+<text x="682" y="1158" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• legal_judgments (105 REAL_VERIFIED Cases)</text>
+<text x="682" y="1184" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• legal_acts (10 Statutory Enactments)</text>
+<text x="682" y="1210" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• legal_sections (2,419 Provisions &amp; Articles)</text>
+<text x="682" y="1236" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• legal_section_relations (149 Concordances)</text>
+<text x="682" y="1262" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• judgment_legal_sections (126 Interpretations)</text>
+
+        <rect x="1270" y="1090" width="560" height="420" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1270" y="1090" width="560" height="32" rx="8" fill="#047857" />
+        <text x="1282" y="1111" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">📂 Document &amp; Evidence Vault</text>
+        <rect x="1648" y="1096" width="176" height="20" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="1652" y="1110" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">HYBRID: ACTIVE + PLANNED</text>
+        
+<text x="1282" y="1158" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• uploads/legal_judgments/ (98 Authentic PDFs) [ACTIVE]</text>
+<text x="1282" y="1184" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• data/verified_pdf_manifest.json (Integrity Hashes) [ACTIVE]</text>
+<text x="1282" y="1210" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Encrypted Case Pleadings &amp; Vakalatnamas [PLANNED]</text>
+<text x="1282" y="1236" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Signed Interim &amp; Certified Orders [PLANNED]</text>
+<text x="1282" y="1262" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• S3 / MinIO Compliant Secure Object Vault [PLANNED]</text>
+
+        <rect x="1870" y="1090" width="560" height="420" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.2" />
+        <rect x="1870" y="1090" width="560" height="32" rx="8" fill="#0369a1" />
+        <text x="1882" y="1111" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">🔍 Legal Search &amp; Analytics Cluster</text>
+        <rect x="2367" y="1096" width="57" height="20" rx="4" fill="rgba(255,255,255,0.25)" />
+        <text x="2371" y="1110" font-family="-apple-system, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">PLANNED</text>
+        
+<text x="1882" y="1158" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Elasticsearch / OpenSearch cluster</text>
+<text x="1882" y="1184" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Ratio decidendi legal vector embeddings</text>
+<text x="1882" y="1210" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Full-text case search across 75 years</text>
+<text x="1882" y="1236" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Cross-court citation network graph</text>
+<text x="1882" y="1262" font-family="-apple-system, sans-serif" font-size="11" fill="#334155">• Judicial analytics &amp; pendency dashboards</text>
+</svg>

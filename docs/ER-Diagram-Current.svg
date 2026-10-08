@@ -1,0 +1,538 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1480" width="2400" height="1480">
+    <defs>
+        <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+            <feOffset dx="0" dy="3" />
+            <feComponentTransfer><feFuncA type="linear" slope="0.08" /></feComponentTransfer>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0b172a" />
+            <stop offset="100%" stop-color="#1e293b" />
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#64748b" />
+        </marker>
+        <marker id="circle" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6">
+            <circle cx="5" cy="5" r="3" fill="#64748b" />
+        </marker>
+    </defs>
+    
+    <!-- Background Canvas -->
+    <rect width="2400" height="1480" fill="#f8fafc" />
+    
+    <!-- Top System Header Banner -->
+    <rect x="0" y="0" width="2400" height="100" fill="url(#headerGrad)" />
+    <line x1="0" y1="100" x2="2400" y2="100" stroke="#c59b27" stroke-width="3" />
+    
+    <text x="50" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" fill="#f8fafc" letter-spacing="0.5">
+        JUDICIARY INFORMATION SYSTEM (JIS) — CURRENT PRODUCTION ER DIAGRAM
+    </text>
+    <text x="50" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">
+        Active Production Legal Repository &amp; Statutory Concordance Schema (Implemented Today in jis-demo)
+    </text>
+    
+    <!-- Verified Provenance Badge -->
+    <rect x="1800" y="32" width="550" height="38" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="1820" cy="51" r="5" fill="#34d399" />
+    <text x="1835" y="55" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="11.5" font-weight="700" fill="#ecfdf5">
+        STRICT FILTER: is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED'
+    </text>
+    
+
+    <rect x="40" y="125" width="760" height="1310" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6,4" />
+    <rect x="60" y="112" width="280" height="26" rx="5" fill="#1e3a8a" />
+    <text x="75" y="129" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">STATUTORY CODE &amp; PROVISIONS</text>
+    
+<rect x="60" y="155" width="720" height="204" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 60 163 Q 60 155 68 155 L 772 155 Q 780 155 780 163 L 780 187 L 60 187 Z" fill="#1e3a8a" />
+    <text x="74" y="177" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_acts</text>
+    
+        <rect x="692" y="161" width="82" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="698" y="174" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">10 RECORDS</text>
+        
+
+    <text x="74" y="207" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="207" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key (Auto Increment)</text>
+
+    <text x="74" y="229" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">code</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="229" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Act code (IPC, BNS, CONSTITUTION)</text>
+
+    <text x="74" y="251" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">title</tspan>: <tspan fill="#64748b">VARCHAR(255)</tspan>
+    </text>
+    <text x="404" y="251" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Full statutory enactment title</text>
+
+    <text x="74" y="273" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">short_title</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="404" y="273" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Standard judicial short title</text>
+
+    <text x="74" y="295" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">enactment_year</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Year passed by Parliament</text>
+
+    <text x="74" y="317" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">act_type</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="404" y="317" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Substantive, Procedural, Constitutional</text>
+
+    <text x="74" y="339" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">status</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="339" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">ACTIVE, REPEALED, TRANSITIONAL</text>
+<rect x="60" y="384" width="720" height="182" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 60 392 Q 60 384 68 384 L 772 384 Q 780 384 780 392 L 780 416 L 60 416 Z" fill="#2563eb" />
+    <text x="74" y="406" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_chapters</text>
+    
+        <rect x="685" y="390" width="89" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="691" y="403" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">73 CHAPTERS</text>
+        
+
+    <text x="74" y="436" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="436" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="74" y="458" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">act_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="458" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_acts.id</text>
+
+    <text x="74" y="480" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">chapter_number</tspan>: <tspan fill="#64748b">VARCHAR(16)</tspan>
+    </text>
+    <text x="404" y="480" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Roman / Arabic Chapter notation</text>
+
+    <text x="74" y="502" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">chapter_title</tspan>: <tspan fill="#64748b">VARCHAR(255)</tspan>
+    </text>
+    <text x="404" y="502" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Subject classification</text>
+
+    <text x="74" y="524" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">start_section</tspan>: <tspan fill="#64748b">VARCHAR(16)</tspan>
+    </text>
+    <text x="404" y="524" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">First section in chapter</text>
+
+    <text x="74" y="546" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">end_section</tspan>: <tspan fill="#64748b">VARCHAR(16)</tspan>
+    </text>
+    <text x="404" y="546" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Last section in chapter</text>
+<rect x="60" y="591" width="720" height="248" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 60 599 Q 60 591 68 591 L 772 591 Q 780 591 780 599 L 780 623 L 60 623 Z" fill="#0369a1" />
+    <text x="74" y="613" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_sections</text>
+    
+        <rect x="650" y="597" width="124" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="656" y="610" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">2,419 PROVISIONS</text>
+        
+
+    <text x="74" y="643" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="643" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="74" y="665" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">act_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="665" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_acts.id</text>
+
+    <text x="74" y="687" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">chapter_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="687" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_chapters.id</text>
+
+    <text x="74" y="709" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">section_number</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="709" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">e.g. Sec 302, Sec 101, Art 21</text>
+
+    <text x="74" y="731" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">section_title</tspan>: <tspan fill="#64748b">VARCHAR(255)</tspan>
+    </text>
+    <text x="404" y="731" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Marginal note / section title</text>
+
+    <text x="74" y="753" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">section_content</tspan>: <tspan fill="#64748b">MEDIUMTEXT</tspan>
+    </text>
+    <text x="404" y="753" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Complete legislative provision wording</text>
+
+    <text x="74" y="775" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">legal_nature</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="404" y="775" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Penal, Procedural, Fundamental Right</text>
+
+    <text x="74" y="797" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">section_order</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="797" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Sequential order within Act</text>
+
+    <text x="74" y="819" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">status</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="819" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">IN_FORCE, REPEALED, SUPERSEDED</text>
+<rect x="60" y="864" width="720" height="182" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 60 872 Q 60 864 68 864 L 772 864 Q 780 864 780 872 L 780 896 L 60 896 Z" fill="#0284c7" />
+    <text x="74" y="886" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_procedural_classifications</text>
+    
+        <rect x="643" y="870" width="131" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="649" y="883" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">PROCEDURAL MATRIX</text>
+        
+
+    <text x="74" y="916" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="916" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="74" y="938" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">section_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="404" y="938" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_sections.id (1:1)</text>
+
+    <text x="74" y="960" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">bailable_status</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="960" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Bailable / Non-Bailable</text>
+
+    <text x="74" y="982" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">cognizable_status</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="982" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Cognizable / Non-Cognizable</text>
+
+    <text x="74" y="1004" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">compoundable_status</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="404" y="1004" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Compoundable / Non-Compoundable</text>
+
+    <text x="74" y="1026" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">triable_by</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="404" y="1026" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Court of Session, Magistrate 1st Class</text>
+
+    <rect x="830" y="125" width="740" height="1310" rx="12" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5" stroke-dasharray="6,4" />
+    <rect x="850" y="112" width="310" height="26" rx="5" fill="#5b21b6" />
+    <text x="865" y="129" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">CONCORDANCE &amp; CLASSIFICATION</text>
+    
+<rect x="850" y="155" width="700" height="182" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 850 163 Q 850 155 858 155 L 1542 155 Q 1550 155 1550 163 L 1550 187 L 850 187 Z" fill="#5b21b6" />
+    <text x="864" y="177" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_section_relations</text>
+    
+        <rect x="1420" y="161" width="124" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="1426" y="174" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">149 CONCORDANCES</text>
+        
+
+    <text x="864" y="207" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="207" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="864" y="229" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">from_section_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="229" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_sections.id (Source / Old Code)</text>
+
+    <text x="864" y="251" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">to_section_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="251" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_sections.id (Target / New Code)</text>
+
+    <text x="864" y="273" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">relation_type</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1194" y="273" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">REPLACED_BY, CONCORDANCE, TRANSITIONAL</text>
+
+    <text x="864" y="295" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">notes</tspan>: <tspan fill="#64748b">TEXT</tspan>
+    </text>
+    <text x="1194" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Legislative transition analysis &amp; changes</text>
+
+    <text x="864" y="317" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">source_name</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1194" y="317" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Official transition concordance matrix</text>
+<rect x="850" y="362" width="700" height="138" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 850 370 Q 850 362 858 362 L 1542 362 Q 1550 362 1550 370 L 1550 394 L 850 394 Z" fill="#6d28d9" />
+    <text x="864" y="384" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_categories</text>
+    
+        <rect x="1441" y="368" width="103" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="1447" y="381" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">28 TAXONOMIES</text>
+        
+
+    <text x="864" y="414" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="414" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="864" y="436" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">name</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1194" y="436" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Criminal, Constitutional, Evidence</text>
+
+    <text x="864" y="458" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">category_type</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1194" y="458" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Taxonomy domain</text>
+
+    <text x="864" y="480" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">description</tspan>: <tspan fill="#64748b">TEXT</tspan>
+    </text>
+    <text x="1194" y="480" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Scope of subject domain</text>
+<rect x="850" y="525" width="700" height="116" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 850 533 Q 850 525 858 525 L 1542 525 Q 1550 525 1550 533 L 1550 557 L 850 557 Z" fill="#7c3aed" />
+    <text x="864" y="547" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_section_categories</text>
+    
+        <rect x="1434" y="531" width="110" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="1440" y="544" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">JUNCTION TABLE</text>
+        
+
+    <text x="864" y="577" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="577" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="864" y="599" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">section_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="599" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_sections.id</text>
+
+    <text x="864" y="621" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">category_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="621" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_categories.id</text>
+<rect x="850" y="666" width="700" height="138" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 850 674 Q 850 666 858 666 L 1542 666 Q 1550 666 1550 674 L 1550 698 L 850 698 Z" fill="#4f46e5" />
+    <text x="864" y="688" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">judgment_legal_sections</text>
+    
+        <rect x="1399" y="672" width="145" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="1405" y="685" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">126 INTERPRETATIONS</text>
+        
+
+    <text x="864" y="718" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="718" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="864" y="740" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">judgment_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="740" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_judgments.id</text>
+
+    <text x="864" y="762" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">section_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1194" y="762" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_sections.id</text>
+
+    <text x="864" y="784" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">relevance_nature</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1194" y="784" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Interpreted &amp; Applied, Struck Down</text>
+
+    <rect x="1600" y="125" width="760" height="1310" rx="12" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5" stroke-dasharray="6,4" />
+    <rect x="1620" y="112" width="310" height="26" rx="5" fill="#065f46" />
+    <text x="1635" y="129" font-family="-apple-system, sans-serif" font-size="12" font-weight="700" fill="#ffffff">VERIFIED PRECEDENT REPOSITORY</text>
+    
+<rect x="1620" y="155" width="720" height="424" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 1620 163 Q 1620 155 1628 155 L 2332 155 Q 2340 155 2340 163 L 2340 187 L 1620 187 Z" fill="#065f46" />
+    <text x="1634" y="177" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">legal_judgments</text>
+    
+        <rect x="2203" y="161" width="131" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="2209" y="174" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">105 REAL_VERIFIED</text>
+        
+
+    <text x="1634" y="207" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="207" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="1634" y="229" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">court_tier</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1964" y="229" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Supreme Court of India, High Court</text>
+
+    <text x="1634" y="251" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">court_name</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1964" y="251" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Full official Court title</text>
+
+    <text x="1634" y="273" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">case_name</tspan>: <tspan fill="#64748b">VARCHAR(255)</tspan>
+    </text>
+    <text x="1964" y="273" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Kesavananda Bharati, Puttaswamy, etc.</text>
+
+    <text x="1634" y="295" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">case_number</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1964" y="295" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Official registration number</text>
+
+    <text x="1634" y="317" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">citation</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1964" y="317" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Official standard citation (e.g. SCC, AIR)</text>
+
+    <text x="1634" y="339" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">neutral_citation</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1964" y="339" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Indian Neutral Citation System (e.g. 1973 INSC 258)</text>
+
+    <text x="1634" y="361" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">judgment_date</tspan>: <tspan fill="#64748b">DATETIME</tspan>
+    </text>
+    <text x="1964" y="361" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Date of pronouncement in open court</text>
+
+    <text x="1634" y="383" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">bench_judges</tspan>: <tspan fill="#64748b">TEXT</tspan>
+    </text>
+    <text x="1964" y="383" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Bench composition / Coram</text>
+
+    <text x="1634" y="405" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">bench_strength</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="405" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Number of judges on bench (e.g. 13, 9, 7)</text>
+
+    <text x="1634" y="427" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">domain</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1964" y="427" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Constitutional Law, Criminal Jurisprudence</text>
+
+    <text x="1634" y="449" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">legal_issue</tspan>: <tspan fill="#64748b">TEXT</tspan>
+    </text>
+    <text x="1964" y="449" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Legal questions framed and decided</text>
+
+    <text x="1634" y="471" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">key_ratio</tspan>: <tspan fill="#64748b">TEXT</tspan>
+    </text>
+    <text x="1964" y="471" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Ratio decidendi of judgment</text>
+
+    <text x="1634" y="493" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">key_holding</tspan>: <tspan fill="#64748b">TEXT</tspan>
+    </text>
+    <text x="1964" y="493" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Operative holding and directions</text>
+
+    <text x="1634" y="515" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">is_landmark</tspan>: <tspan fill="#64748b">TINYINT</tspan>
+    </text>
+    <text x="1964" y="515" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">1 = Landmark precedent</text>
+
+    <text x="1634" y="537" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">is_synthetic</tspan>: <tspan fill="#64748b">TINYINT</tspan>
+    </text>
+    <text x="1964" y="537" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">0 = STRICTLY GENUINE (No synthetic)</text>
+
+    <text x="1634" y="559" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">record_provenance</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="1964" y="559" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">'REAL_VERIFIED' (Strict filter)</text>
+<rect x="1620" y="604" width="720" height="270" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 1620 612 Q 1620 604 1628 604 L 2332 604 Q 2340 604 2340 612 L 2340 636 L 1620 636 Z" fill="#047857" />
+    <text x="1634" y="626" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">judgment_documents</text>
+    
+        <rect x="2203" y="610" width="131" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="2209" y="623" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">98 AUTHENTIC PDFS</text>
+        
+
+    <text x="1634" y="656" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="656" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="1634" y="678" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">judgment_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="678" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_judgments.id</text>
+
+    <text x="1634" y="700" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">document_type</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1964" y="700" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">AUTHENTIC_JUDGMENT_PDF</text>
+
+    <text x="1634" y="722" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">original_filename</tspan>: <tspan fill="#64748b">VARCHAR(255)</tspan>
+    </text>
+    <text x="1964" y="722" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Official registry PDF filename</text>
+
+    <text x="1634" y="744" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">storage_path</tspan>: <tspan fill="#64748b">VARCHAR(255)</tspan>
+    </text>
+    <text x="1964" y="744" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">uploads/legal_judgments/</text>
+
+    <text x="1634" y="766" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">source_url</tspan>: <tspan fill="#64748b">VARCHAR(512)</tspan>
+    </text>
+    <text x="1964" y="766" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Authoritative judicial portal URL</text>
+
+    <text x="1634" y="788" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">file_size_bytes</tspan>: <tspan fill="#64748b">BIGINT</tspan>
+    </text>
+    <text x="1964" y="788" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Exact byte size</text>
+
+    <text x="1634" y="810" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">mime_type</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1964" y="810" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">application/pdf</text>
+
+    <text x="1634" y="832" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">sha256_hash</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1964" y="832" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Cryptographic verification hash</text>
+
+    <text x="1634" y="854" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">is_verified</tspan>: <tspan fill="#64748b">TINYINT</tspan>
+    </text>
+    <text x="1964" y="854" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">1 = Authenticated authentic document</text>
+<rect x="1620" y="899" width="720" height="182" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" filter="url(#cardShadow)" />
+
+    <path d="M 1620 907 Q 1620 899 1628 899 L 2332 899 Q 2340 899 2340 907 L 2340 931 L 1620 931 Z" fill="#059669" />
+    <text x="1634" y="921" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">judgment_citations</text>
+    
+        <rect x="2196" y="905" width="138" height="18" rx="4" fill="rgba(255,255,255,0.2)" />
+        <text x="2202" y="918" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="9.5" font-weight="600" fill="#ffffff">REPORTER CITATIONS</text>
+        
+
+    <text x="1634" y="951" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#b45309" font-weight="bold">PK </tspan><tspan font-weight="600" fill="#0f172a">id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="951" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Primary Key</text>
+
+    <text x="1634" y="973" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan fill="#0284c7" font-weight="bold">FK </tspan><tspan font-weight="600" fill="#0f172a">judgment_id</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="973" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">FK -> legal_judgments.id</text>
+
+    <text x="1634" y="995" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">reporter_name</tspan>: <tspan fill="#64748b">VARCHAR(64)</tspan>
+    </text>
+    <text x="1964" y="995" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">SCC, SCR, AIR, SCALE, Judis</text>
+
+    <text x="1634" y="1017" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">citation_string</tspan>: <tspan fill="#64748b">VARCHAR(128)</tspan>
+    </text>
+    <text x="1964" y="1017" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Volume and page citation string</text>
+
+    <text x="1634" y="1039" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">page_number</tspan>: <tspan fill="#64748b">VARCHAR(32)</tspan>
+    </text>
+    <text x="1964" y="1039" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Page reference in legal reporter</text>
+
+    <text x="1634" y="1061" font-family="'SF Mono', Menlo, Consolas, Monaco, monospace" font-size="11" fill="#334155">
+        <tspan font-weight="600" fill="#0f172a">year</tspan>: <tspan fill="#64748b">INT</tspan>
+    </text>
+    <text x="1964" y="1061" font-family="-apple-system, sans-serif" font-size="10" fill="#94a3b8">Publication year</text>
+</svg>

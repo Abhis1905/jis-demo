@@ -1,0 +1,1615 @@
+/* ==========================================================================
+   Judiciary Information System (JIS) — Official Legal Portal Stylesheet
+   Identity: भारतीय न्याय तंत्र | BHARATIYA NYAYA TANTRA
+   Design: Dignified Indian Judicial & Constitutional Visual Identity
+   ========================================================================== */
+
+:root {
+  --navy: #1a365d;
+  --navy-dark: #0f233d;
+  --navy-light: #234e85;
+  --gold: #b45309;
+  --gold-dark: #92400e;
+  --gold-bg: #fffbeb;
+  --gold-border: #fde68a;
+  --emerald: #047857;
+  --emerald-bg: #ecfdf5;
+  --emerald-border: #a7f3d0;
+  --indigo: #4338ca;
+  --indigo-bg: #eef2ff;
+  --indigo-border: #c7d2fe;
+  --ivory: #faf8f5;
+  --ivory-card: #fdfcf9;
+  --parchment: #faf7f2;
+  --bg: #f5f3ef;
+  --surface: #ffffff;
+  --border: #d8dee4;
+  --border-light: #e8ecef;
+  --text: #1e293b;
+  --text-muted: #4b5563;
+  --text-light: #64748b;
+  --max-width: 1060px;
+}
+
+/* Reset & Box Sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--navy);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+a:hover {
+  color: var(--navy-dark);
+  text-decoration: underline;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Tricolour Accent & Header
+   -------------------------------------------------------------------------- */
+.tricolour-bar {
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #f97316 0%, #f97316 33.3%, #ffffff 33.3%, #ffffff 66.6%, #15803d 66.6%, #15803d 100%);
+}
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Authentic Judicial Header Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: inherit;
+  text-decoration: none !important;
+}
+
+.judicial-insignia {
+  width: 40px;
+  height: 58px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-hindi {
+  font-family: "Devanagari MT", "Noto Serif Devanagari", "Noto Sans Devanagari", serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+}
+
+.brand-english {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold-dark);
+  letter-spacing: 0.4px;
+  line-height: 1.25;
+}
+
+#main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 0.4rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  text-decoration: none !important;
+}
+
+.nav-link:hover {
+  color: var(--navy);
+}
+
+.nav-link.active {
+  color: var(--navy);
+  border-bottom-color: var(--navy);
+}
+
+/* --------------------------------------------------------------------------
+   Main Container
+   -------------------------------------------------------------------------- */
+.main-wrap {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  min-height: 75vh;
+}
+
+/* --------------------------------------------------------------------------
+   1. Constitutional Opening (Hero)
+   -------------------------------------------------------------------------- */
+.constitutional-hero {
+  text-align: center;
+  padding: 1.25rem 1rem 1rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.motto-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.motto-rule {
+  height: 1px;
+  background: var(--gold-border);
+  flex: 1;
+  max-width: 120px;
+}
+
+.sanskrit-motto {
+  font-family: "Devanagari MT", "Noto Serif Devanagari", "Noto Sans Devanagari", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.constitution-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+}
+
+.constitution-tagline {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--gold-dark);
+}
+
+/* --------------------------------------------------------------------------
+   2. Constitution + Judiciary Two-Column Centerpiece
+   -------------------------------------------------------------------------- */
+.constitution-framework-section {
+  margin-bottom: 2rem;
+}
+
+.framework-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.framework-col-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.preamble-figure {
+  background: var(--parchment);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  height: 100%;
+}
+
+.preamble-img {
+  width: 100%;
+  max-height: 440px;
+  object-fit: contain;
+  display: block;
+  border: 1px solid #dfd6c2;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  background: #fff;
+}
+
+.preamble-figure figcaption {
+  margin-top: 0.75rem;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.framework-col-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.constitutional-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.flow-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--gold-dark);
+  margin-bottom: 0.85rem;
+}
+
+.flow-arrow {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.panel-heading {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 1.15rem;
+  line-height: 1.3;
+}
+
+.sanskrit-passage {
+  background: #fdfaf3;
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.15rem;
+}
+
+.sa-text {
+  font-family: "Devanagari MT", "Noto Serif Devanagari", "Noto Sans Devanagari", serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #1a365d;
+}
+
+.english-passage p {
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #2d3748;
+}
+
+/* --------------------------------------------------------------------------
+   3. Supreme Court Storyline Section
+   -------------------------------------------------------------------------- */
+.sc-storyline-section {
+  margin-bottom: 2rem;
+}
+
+.sc-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--navy);
+  border-radius: 4px;
+  padding: 1.75rem 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.sc-eyebrow {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  margin-bottom: 0.35rem;
+}
+
+.sc-headline {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
+}
+
+.sc-narrative p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #334155;
+  margin-bottom: 0.75rem;
+}
+
+.sc-art141 {
+  font-weight: 600;
+  color: var(--navy-dark) !important;
+  background: #f8fafc;
+  border-left: 3px solid var(--navy);
+  padding: 0.65rem 1rem;
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  margin-bottom: 1.15rem !important;
+}
+
+.sc-chain-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-light);
+  margin-top: 0.5rem;
+}
+
+.chain-step {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--navy);
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  padding: 0.25rem 0.65rem;
+  border-radius: 2px;
+}
+
+.chain-arrow {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Explore The Indian Legal Framework (Public Resources)
+   -------------------------------------------------------------------------- */
+.legal-framework-section {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+}
+
+.framework-header {
+  margin-bottom: 1.35rem;
+}
+
+.framework-header h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  letter-spacing: 0.8px;
+}
+
+.framework-header p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.framework-resources-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.resource-editorial-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--navy);
+  border-radius: 4px;
+  padding: 1.35rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+.resource-editorial-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.resource-editorial-item h3 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.3px;
+}
+
+.item-purpose {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold-dark);
+  font-style: italic;
+  margin-bottom: 0.65rem;
+}
+
+.resource-editorial-item p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.15rem;
+  flex-grow: 1;
+}
+
+.resource-link {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--navy);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: auto;
+}
+
+.resource-link:hover {
+  color: var(--navy-dark);
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   Judgments Repository Search & List Panels
+   -------------------------------------------------------------------------- */
+.search-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  margin-bottom: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: inherit;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search-bar input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(26, 54, 93, 0.12);
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.65rem 1.25rem;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+.btn-primary:hover {
+  background: var(--navy-dark);
+  border-color: var(--navy-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.btn-sm {
+  font-size: 0.84rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.btn-outline {
+  background: #fff;
+  border-color: var(--border);
+  color: var(--navy);
+}
+
+.btn-outline:hover {
+  background: #f1f5f9;
+  border-color: var(--navy);
+  color: var(--navy-dark);
+  text-decoration: none;
+}
+
+.btn-pdf {
+  background: var(--emerald-bg);
+  border-color: var(--emerald-border);
+  color: var(--emerald);
+  font-weight: 600;
+}
+
+.btn-pdf:hover {
+  background: #d1fae5;
+  color: #065f46;
+  text-decoration: none;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.filter-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.filter-row select {
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.45rem 0.75rem;
+  outline: none;
+  cursor: pointer;
+  max-width: 280px;
+}
+
+.filter-row select:focus {
+  border-color: var(--navy);
+}
+
+.results-panel {
+  margin-bottom: 2.5rem;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.results-header h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  color: var(--navy-dark);
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.judgments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.judgment-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.15rem 1.35rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.judgment-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin-bottom: 0.45rem;
+}
+
+.card-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.card-title a {
+  color: var(--navy);
+}
+
+.card-title a:hover {
+  color: var(--navy-dark);
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.meta-row strong {
+  color: var(--text);
+}
+
+.meta-row .sep {
+  color: #94a3b8;
+}
+
+.issue-text {
+  font-size: 0.92rem;
+  color: #334155;
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.btn-page {
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.btn-page:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: var(--navy);
+}
+
+.btn-page:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+  border-color: var(--border-light);
+}
+
+.page-info {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Judgment Detail View & PDF Handling
+   -------------------------------------------------------------------------- */
+.back-link {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: var(--navy);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.35rem 0;
+  margin-bottom: 1.25rem;
+  font-family: inherit;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+  color: var(--navy-dark);
+}
+
+.detail-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.detail-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  line-height: 1.3;
+  margin-bottom: 1.25rem;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+}
+
+.meta-grid strong {
+  color: var(--navy);
+}
+
+.pdf-status-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 3px;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--border);
+}
+
+.pdf-status-box.available {
+  background: var(--emerald-bg);
+  border-color: var(--emerald-border);
+  border-left: 4px solid var(--emerald);
+}
+
+.pdf-status-box.unavailable {
+  background: #f8fafc;
+  border-left: 4px solid var(--text-light);
+}
+
+.pdf-status-text strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.pdf-status-box.available .pdf-status-text strong {
+  color: #065f46;
+}
+
+.pdf-status-box.unavailable .pdf-status-text strong {
+  color: var(--text);
+}
+
+.pdf-status-text span {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.detail-section {
+  margin-bottom: 2.25rem;
+  background: var(--surface);
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.detail-section h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  color: var(--navy-dark);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #b8860b;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.15rem;
+  display: inline-block;
+}
+
+.detail-section p.section-body {
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: #1e293b;
+  margin: 0;
+  text-align: justify;
+}
+
+/* Findings List */
+.findings-list {
+  list-style: none;
+  counter-reset: findings-counter;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+}
+
+.findings-list li {
+  counter-increment: findings-counter;
+  position: relative;
+  padding: 0.85rem 1.15rem 0.85rem 3.25rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #1a365d;
+  border-radius: 3px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #1e293b;
+}
+
+.findings-list li::before {
+  content: counter(findings-counter);
+  position: absolute;
+  left: 0.85rem;
+  top: 0.85rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  background: #1a365d;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Provisions Grid */
+.provisions-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.prov-card {
+  background: #fdfdfd;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #b8860b;
+  border-radius: 4px;
+  padding: 1.15rem 1.35rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.prov-card:hover {
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.prov-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1a365d;
+  background: #e2e8f0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+
+.prov-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.prov-rel {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #334155;
+  margin: 0;
+  background: #f8fafc;
+  border-left: 2px solid #cbd5e1;
+  padding: 0.5rem 0.85rem;
+  border-radius: 0 3px 3px 0;
+}
+
+.prov-rel strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.btn-pdf-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  background: #1a365d;
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  border: 1px solid #0f233a;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-pdf-view:hover {
+  background: #0f233a;
+  border-color: #b8860b;
+}
+
+.section-link-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.section-link-list li {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.relevance-tag {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--indigo);
+  background: var(--indigo-bg);
+  border: 1px solid var(--indigo-border);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Acts Grid & Act Detail
+   -------------------------------------------------------------------------- */
+.acts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.act-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.35rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.act-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+}
+
+.enact-year {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.act-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 0.35rem;
+  line-height: 1.35;
+}
+
+.act-short {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+}
+
+.act-desc {
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.act-footer {
+  margin-top: auto;
+}
+
+.act-header-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.act-header-card h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  color: var(--navy-dark);
+  font-weight: 700;
+  margin-top: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.act-meta {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.act-full-desc {
+  font-size: 0.95rem;
+  color: #334155;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
+.act-summary-bar {
+  background: #f1f5f9;
+  border-left: 3px solid var(--navy);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.88rem;
+  color: var(--navy-dark);
+}
+
+.section-search-bar {
+  margin-bottom: 1.25rem;
+}
+
+.section-search-bar input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: inherit;
+  outline: none;
+}
+
+.section-search-bar input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(26, 54, 93, 0.1);
+}
+
+.sections-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.sections-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.sections-table th {
+  background: #f1f5f9;
+  color: var(--navy-dark);
+  font-weight: 700;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.sections-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.sections-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.sec-link {
+  font-weight: 600;
+}
+
+.btn-table {
+  background: #f1f5f9;
+  border: 1px solid var(--border);
+  color: var(--navy);
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+}
+
+.btn-table:hover {
+  background: var(--navy);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Section Detail View
+   -------------------------------------------------------------------------- */
+.section-act-breadcrumb {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.35rem;
+}
+
+.section-meta-tags {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.statutory-text-box {
+  background: #fcfcfc;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--navy);
+  padding: 1.25rem 1.5rem;
+  border-radius: 3px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: #1e293b;
+  white-space: pre-wrap;
+}
+
+.transition-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.transition-row {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+}
+
+.transition-desc {
+  font-size: 0.95rem;
+  margin-left: 0.65rem;
+}
+
+.transition-notes {
+  font-size: 0.88rem;
+  color: #475569;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  padding: 0.5rem 0.75rem;
+  border-radius: 2px;
+  margin-top: 0.65rem;
+}
+
+/* --------------------------------------------------------------------------
+   Section Mapping View (Concordance Matrix)
+   -------------------------------------------------------------------------- */
+.mapping-filter-bar {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.mapping-filter-bar input {
+  flex: 1;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: inherit;
+  outline: none;
+}
+
+.mapping-filter-bar input:focus {
+  border-color: var(--navy);
+}
+
+.mapping-filter-bar select {
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: inherit;
+  background: #fff;
+}
+
+.mapping-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.act-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  margin-bottom: 0.25rem;
+}
+
+.act-pill.new-act {
+  background: var(--emerald-bg);
+  color: var(--emerald);
+  border-color: var(--emerald-border);
+}
+
+.notes-cell {
+  font-size: 0.85rem;
+  color: #475569;
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   Badges
+   -------------------------------------------------------------------------- */
+.badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.badge-active {
+  background: var(--emerald-bg);
+  color: var(--emerald);
+  border-color: var(--emerald-border);
+}
+
+.badge-repealed {
+  background: #f1f5f9;
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.badge-relation {
+  background: var(--indigo-bg);
+  color: var(--indigo);
+  border-color: var(--indigo-border);
+}
+
+.badge-tag {
+  background: #f8fafc;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Messages & Intro
+   -------------------------------------------------------------------------- */
+.loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.empty-msg, .error-msg, .empty-text {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+.error-msg {
+  color: #b91c1c;
+  border-color: #fca5a5;
+  background: #fef2f2;
+}
+
+.intro {
+  margin-bottom: 1.5rem;
+}
+
+.intro h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--navy-dark);
+  margin-bottom: 0.35rem;
+}
+
+.intro p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Institutional Footer
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--surface);
+  border-top: 2px solid var(--border);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  color: var(--text-muted);
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.footer-title {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--navy-dark);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.footer-sub {
+  font-size: 0.82rem;
+  color: var(--text-light);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive Layout (Tablets & Mobile)
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  #main-nav {
+    width: 100%;
+    gap: 1.15rem;
+    border-top: 1px solid var(--border-light);
+    padding-top: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .framework-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .framework-col-left {
+    max-width: 380px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .framework-resources-row {
+    grid-template-columns: 1fr;
+  }
+
+  .acts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .filter-row label {
+    justify-content: space-between;
+  }
+
+  .filter-row select {
+    max-width: none;
+    width: 65%;
+  }
+
+  .pdf-status-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 540px) {
+  .main-wrap {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+  .brand {
+    gap: 0.75rem;
+  }
+
+  .judicial-insignia {
+    width: 32px;
+    height: 48px;
+  }
+
+  .brand-hindi {
+    font-size: 1rem;
+  }
+
+  .brand-english {
+    font-size: 0.82rem;
+  }
+
+  .constitution-title {
+    font-size: 1.4rem;
+    letter-spacing: 1.2px;
+  }
+
+  .sanskrit-motto {
+    font-size: 1.15rem;
+  }
+
+  .panel-heading,
+  .sc-headline {
+    font-size: 1.2rem;
+  }
+
+  .sanskrit-passage {
+    padding: 0.75rem 1rem;
+  }
+
+  .sa-text {
+    font-size: 0.98rem;
+  }
+
+  .constitutional-panel,
+  .sc-panel {
+    padding: 1.25rem;
+  }
+
+  .detail-card {
+    padding: 1.25rem;
+  }
+
+  .detail-title {
+    font-size: 1.3rem;
+  }
+
+  .card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .meta-row .sep {
+    display: none;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-actions a {
+    text-align: center;
+  }
+
+  .mapping-filter-bar {
+    flex-direction: column;
+  }
+}
