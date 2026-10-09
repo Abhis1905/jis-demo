@@ -40,26 +40,59 @@ JIS operates without heavy frontend dependencies or complex build steps, pairing
 
 ```mermaid
 flowchart TD
-    subgraph Presentation Tier
-        UI["Semantic HTML5 / Responsive CSS / Vanilla JS<br/>(public/index.html & public/script.js)"]
+    subgraph PRESENTATION["Presentation Layer - Browser Client"]
+        UI_SEARCH["Judgment Search and Filtering<br/>Faceted filters by court tier, year, title, and legal ratio"]
+        UI_DETAIL["Judgment Details and Dossiers<br/>Factual summaries, issues, holdings, and judicial findings"]
+        UI_PROVISIONS["Statutory Provisions Browser<br/>10 legislative acts and 2,419 statutory sections"]
+        UI_MAPPINGS["Transition Concordance Matrix<br/>Old Codes to New Sanhitas transition mappings"]
     end
 
-    subgraph Application Tier
-        API["Express.js 5.x REST Engine<br/>(server.js)"]
-        AUTH["Route Handlers & Query Sanitization"]
-        PDF["Document Streaming Pipeline"]
+    subgraph APPLICATION["Application Layer - Express REST API"]
+        API_ROUTER["Express REST API Engine<br/>Route controllers in server.js"]
+        API_VALIDATION["Request Validation and Sanitization<br/>Pagination bounds, sort flags, and query parameters"]
+        API_POOL["MySQL2 Connection Pool<br/>mysql2 promise pool with parameterized SQL execution"]
+        API_DOCS["Judgment Document Delivery Engine<br/>Magic-byte file signature validation and portal redirects"]
     end
 
-    subgraph Data & Storage Tier
-        DB[("MySQL 8.0 Relational Database<br/>(jis_dev_db / jis_db)")]
-        VAULT["Local Document Storage<br/>(uploads/legal_judgments/)"]
+    subgraph DATABASE["Database Layer - MySQL Relational Schema"]
+        T_ACTS[("legal_acts<br/>10 Statutory Enactments")]
+        T_SECTIONS[("legal_sections<br/>2,419 Statutory Provisions")]
+        T_JUDGMENTS[("legal_judgments<br/>Curated Precedents and Provenance")]
+        T_JUNCTION[("judgment_legal_sections<br/>Precedent to Section Citations")]
+        T_RELATIONS[("legal_section_relations<br/>149 Concordance Transitions")]
+        VW_UNIFIED[("vw_unified_judicial_records<br/>Unified View of Court Decisions")]
     end
 
-    UI -->|Async HTTP Fetch| API
-    API --> AUTH
-    AUTH -->|Connection Pool (mysql2)| DB
-    API --> PDF
-    PDF -->|Stream / Redirect| VAULT
+    subgraph STORAGE["Document Storage Layer"]
+        DOC_MANIFEST["Document Verification Manifest<br/>data/verified_pdf_manifest.json"]
+        DOC_VAULT["Local PDF Vault<br/>uploads/legal_judgments with 82 verified PDFs"]
+        DOC_EXTERNAL["Official Judicial Portals<br/>Supreme Court DigiSCR and High Court eCourts URLs"]
+    end
+
+    UI_SEARCH -->|Search and filter requests| API_ROUTER
+    UI_DETAIL -->|Case record requests| API_ROUTER
+    UI_PROVISIONS -->|Act and section requests| API_ROUTER
+    UI_MAPPINGS -->|Concordance matrix requests| API_ROUTER
+
+    API_ROUTER -->|Inbound HTTP requests| API_VALIDATION
+    API_VALIDATION -->|Sanitized parameters| API_POOL
+    API_ROUTER -->|Document access requests| API_DOCS
+
+    API_POOL -->|Parameterized SQL queries| VW_UNIFIED
+    API_POOL -->|Parameterized SQL queries| T_ACTS
+    API_POOL -->|Parameterized SQL queries| T_SECTIONS
+    API_POOL -->|Parameterized SQL queries| T_RELATIONS
+    API_POOL -->|Parameterized SQL queries| T_JUNCTION
+
+    T_ACTS -->|One to many relationship| T_SECTIONS
+    T_SECTIONS -->|Repealed to modern provisions| T_RELATIONS
+    T_JUDGMENTS -->|Cited in judicial decision| T_JUNCTION
+    T_SECTIONS -->|Statutory provisions applied| T_JUNCTION
+    T_JUDGMENTS -->|Curated benchmark cases| VW_UNIFIED
+
+    API_DOCS -->|Verify document integrity| DOC_MANIFEST
+    DOC_MANIFEST -->|Stream authentic binary PDF| DOC_VAULT
+    API_DOCS -->|Redirect when local PDF absent| DOC_EXTERNAL
 ```
 
 ---
@@ -205,19 +238,27 @@ Tests verify module exports, route availability, live API contracts, schema inte
 
 ---
 
-## Data Provenance & Verification
+## Legal Data, Provenance & Licensing Notice
 
-- **Judicial Records Provenance**: The platform maintains an explicit provenance boundary in the database (`record_provenance`). 500 historical development records are cataloged as `SYNTHETIC_REPRESENTATIVE` (`is_synthetic = 1`) and strictly excluded from public search, filters, and statistics. The public repository serves 4,984 authentic judicial decisions (`REAL_VERIFIED`, `is_synthetic = 0`), comprising 105 curated landmark cases and 4,879 court decisions sourced from official eCourts portals and High Court registries.
-- **Statutory Provisions Depth**:
-  - **Landmark Provisions (Cohort 1, 72 sections)**: Verbatim statutory text, essential legal ingredients, exceptions, statutory penalties, and Supreme Court precedent citations validated against official Gazette publications.
-  - **General Provisions (Cohort 2, 2,347 sections)**: Baseline India Code statutory provisions featuring official marginal headings, commencement dates, and chapter classifications, accompanied by structured explanatory references. Precedent cross-links are attached only where explicit citation evidence is documented.
-- **Document Availability**: 82 verified Supreme Court landmark judgments feature locally stored official PDFs validated by binary file signatures (`%PDF-`). Records without local PDF storage redirect or link directly to authentic court record URLs on the official Supreme Court DigiSCR or High Court eCourts portals.
-- **Transitional Law**: Concordance records strictly reference statutory saving provisions (Section 358 BNS, Section 531 BNSS, Section 170 BSA) ensuring accurate guidance for pending vs. post-July 1, 2024 proceedings.
+### Academic Research Scope
+The **Judiciary Information System (JIS)** is an academic research and engineering demonstration platform exploring legal information retrieval, statutory structure modeling, and criminal law transition concordances in the Indian legal context. JIS is not an official legal repository, public judicial authority, or law practice, and does not provide legal advice, counsel, or official interpretations of Indian law.
 
----
+### Software Licensing vs. Third-Party Legal Materials
+- **Application Software**: The application source code, configuration templates, schema migration scripts, and test suites are licensed under the [MIT License](LICENSE), subject to the terms and limitations set forth in the `LICENSE` file.
+- **Third-Party Legal Content**: The MIT License applies exclusively to software created for this repository. It does not license, convey rights in, or claim ownership over any underlying judicial decisions, court orders, statutory texts, legislative provisions, or government publications cited, indexed, or stored within the project.
 
-## License & Third-Party Legal Notice
+### Source Attribution & Redistribution Rights
+Judicial decisions, court orders, statutory acts, and legislative enactments referenced within this platform are public government records and legal materials of official record. However, the project makes no representation or warranty that every referenced or bundled document is freely redistributable without restriction. Downstream users, researchers, and developers are solely responsible for ensuring compliance with applicable court rules, copyright laws, source attribution obligations, and institutional terms of service governing third-party sources (including eCourts, High Court registries, India Code, and the Supreme Court of India).
 
-The application source code, configuration templates, and operational scripts are licensed under the [MIT License](LICENSE). 
+### Data Provenance & Verification Tiers
+Records in JIS originate from multiple sources and represent varying levels of curation and validation. They must not be assumed to be uniformly or independently verified:
+- **Curated Landmark Judgments (105 records)**: Hand-curated constitutional and appellate decisions featuring structured case overviews, legal issues, holdings, and ratio summaries.
+- **Imported Court Records (4,879 records)**: Court records ingested from official High Court and eCourts registries, containing case metadata and direct links to official orders.
+- **Locally Stored Documents (82 PDFs)**: Curated Supreme Court judgments with locally preserved PDF files verified by binary file signatures (`%PDF-`); records without local PDF storage redirect or link directly to authentic court record URLs on the official Supreme Court DigiSCR or High Court eCourts portals.
+- **Statutory Landmark Provisions (Cohort 1, 72 sections)**: Independently audited against official Gazette publications for verbatim statutory text, essential ingredients, statutory exceptions, penalties, and cited precedents.
+- **Statutory General Provisions (Cohort 2, 2,347 sections)**: Baseline India Code statutory provisions featuring official marginal headings, commencement dates, and chapter classifications, accompanied by structured explanatory references. Precedent cross-links are attached only where explicit citation evidence is documented.
+- **Synthetic / Representative Development Records (500 records)**: Legacy development mock records explicitly classified with `is_synthetic = 1` and `record_provenance = 'SYNTHETIC_REPRESENTATIVE'`, isolated in the database and strictly excluded from public queries, search, and platform statistics.
+- **Transitional Concordances (149 mappings)**: Statutory transition mappings connecting repealed colonial codes (IPC, CrPC, IEA) to modern Sanhitas (BNS, BNSS, BSA), referencing statutory saving clauses (Section 358 BNS, Section 531 BNSS, Section 170 BSA).
 
-Judicial decisions, court orders, statutory acts, and legislative enactments cited or referenced within this repository are public legal documents and government records. The project authors make no representations or warranties regarding third-party redistribution rights; users and downstream redistributors are solely responsible for compliance with applicable court rules, copyright laws, and source institutional terms.
+### Requirement to Consult Authoritative Sources
+Legal materials, section commentaries, and transitional mappings presented in JIS are provided for computational research and academic study only. Laws, judicial precedents, and procedural rules are subject to legislative amendment and judicial reinterpretation. Users and legal practitioners must independently verify all statutory text and case citations against authoritative primary sources—including the official Gazette of India, Supreme Court Reports (SCR / DigiSCR), High Court registries, or certified court copies—prior to relying upon them for any formal, academic, or professional purpose.
