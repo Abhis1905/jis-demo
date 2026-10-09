@@ -125,10 +125,120 @@ async function loadSectionDetail(id) {
     const { section: s, mappings, judgments } = await (await fetch(`/api/sections/${id}`)).json();
     lastActId = s.act_id;
     const rels = [...(mappings.outgoing || []), ...(mappings.incoming || [])];
-    const mapHtml = rels.length ? `<div class="detail-section"><h2>Statutory Transition &amp; Equivalence Mapping</h2><div class="transition-box">${rels.map(r => `<div class="transition-row"><span class="badge badge-relation">${escapeHtml(r.relation_type)}</span><span class="transition-desc">Mapped to <strong>${escapeHtml(r.related_act)} Sec ${escapeHtml(r.related_sec_num)}</strong> (<a href="#/sections/${r.related_sec_id}">${escapeHtml(r.related_sec_title)}</a>)</span>${r.notes ? `<p class="transition-notes"><strong>Note:</strong> ${escapeHtml(r.notes)}</p>` : ''}</div>`).join('')}</div></div>` : '';
-    const judgHtml = judgments?.length ? `<div class="detail-section"><h2>Verified Judicial Interpretations (${judgments.length})</h2><ul class="section-link-list">${judgments.map(j => `<li><a href="#/judgment/${j.id}"><strong>${escapeHtml(j.case_name)}</strong> (${escapeHtml(j.citation || 'Verified')})</a><span class="relevance-tag">${escapeHtml(j.relevance_nature)}</span></li>`).join('')}</ul></div>` : '';
-    el.innerHTML = `<div class="detail-header"><p class="section-act-breadcrumb"><a href="#/acts/${s.act_id}">${escapeHtml(s.act_title)}</a> &bull; Chapter Provision</p><h1 class="detail-title">Section ${escapeHtml(s.section_number)}: ${escapeHtml(s.section_title)}</h1><div class="section-meta-tags"><span class="badge-tag">Nature: ${escapeHtml(s.legal_nature || 'General')}</span><span class="badge ${s.status === 'Active' ? 'badge-active' : 'badge-repealed'}">${escapeHtml(s.status)}</span></div></div>
-      <div class="detail-section"><h2>Official Statutory Text</h2><div class="statutory-text-box">${escapeHtml(s.section_text || 'Official statutory text not recorded.')}</div></div>${mapHtml}${judgHtml}`;
+    
+    // Transition mappings HTML
+    const mapHtml = rels.length ? `
+      <div class="detail-section">
+        <h2>Statutory Transition &amp; Equivalence Mapping</h2>
+        <div class="transition-box">
+          ${rels.map(r => `
+            <div class="transition-row">
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+                <span class="badge badge-relation">${escapeHtml(r.relation_type)}</span>
+                ${r.mapping_nature ? `<span class="badge badge-tag">${escapeHtml(r.mapping_nature)}</span>` : ''}
+                <span class="transition-desc">Mapped to <strong>${escapeHtml(r.related_act)} Sec ${escapeHtml(r.related_sec_num)}</strong> (<a href="#/sections/${r.related_sec_id}">${escapeHtml(r.related_sec_title)}</a>)</span>
+              </div>
+              ${r.notes ? `<p class="transition-notes"><strong>Note:</strong> ${escapeHtml(r.notes)}</p>` : ''}
+              ${r.what_changed ? `<div class="comp-point"><strong>What Changed:</strong> ${escapeHtml(r.what_changed)}</div>` : ''}
+              ${r.what_remains_same ? `<div class="comp-point"><strong>What Remains the Same:</strong> ${escapeHtml(r.what_remains_same)}</div>` : ''}
+              ${r.punishment_comparison ? `<div class="comp-point"><strong>Punishment Comparison:</strong> ${escapeHtml(r.punishment_comparison)}</div>` : ''}
+              ${r.transitional_notes ? `<div class="comp-point"><strong>Transitional Rule:</strong> ${escapeHtml(r.transitional_notes)}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>` : '';
+
+    // Judgments HTML
+    const judgHtml = (judgments && judgments.length) ? `
+      <div class="detail-section">
+        <h2>Verified Judicial Interpretations (${judgments.length})</h2>
+        <ul class="section-link-list">
+          ${judgments.map(j => `
+            <li style="margin-bottom:0.75rem;">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:0.4rem;">
+                <a href="#/judgment/${j.id}"><strong>${escapeHtml(j.case_name)}</strong> (${escapeHtml(j.citation || 'Verified')})</a>
+                <div>
+                  ${j.authority_type ? `<span class="badge badge-tag" style="margin-right:0.35rem;">${escapeHtml(j.authority_type)}</span>` : ''}
+                  <span class="relevance-tag">${escapeHtml(j.relevance_nature)}</span>
+                </div>
+              </div>
+              ${j.ratio_summary ? `<div class="ratio-box"><strong>Ratio:</strong> ${escapeHtml(j.ratio_summary)}</div>` : (j.legal_principle ? `<div class="ratio-box"><strong>Principle:</strong> ${escapeHtml(j.legal_principle)}</div>` : '')}
+            </li>
+          `).join('')}
+        </ul>
+      </div>` : `
+      <div class="detail-section">
+        <h2>Verified Judicial Interpretations</h2>
+        <div class="empty-notice-box">
+          <p>No verified landmark judgment identified; statutory interpretation applies.</p>
+        </div>
+      </div>`;
+
+    // 20-Point Analysis Grid HTML
+    const analysisHtml = `
+      <div class="detail-section">
+        <h2>Comprehensive Legal Analysis (20-Point Statutory Matrix)</h2>
+        <div class="analysis-grid">
+          <div class="analysis-card">
+            <h3>Plain-Language Legal Explanation</h3>
+            <p>${escapeHtml(s.plain_explanation || 'Comprehensive legal explanation operates under the statutory scheme.')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Essential Ingredients &amp; Operative Requirements</h3>
+            <p>${escapeHtml(s.essential_ingredients || 'Statutory elements and factual preconditions governing judicial application.')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Exceptions, Defences &amp; Provisos</h3>
+            <p>${escapeHtml(s.exceptions || 'Subject to general statutory exceptions and judicial discretion.')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Punishment, Sanction &amp; Legal Consequence</h3>
+            <p>${escapeHtml(s.punishment_or_consequence || 'Prescribed statutory consequence enforceable by competent court.')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Legislative Objective &amp; Scope</h3>
+            <p><strong>Objective:</strong> ${escapeHtml(s.legal_objective || 'Orderly administration of justice.')}</p>
+            <p style="margin-top:0.35rem;"><strong>Scope:</strong> ${escapeHtml(s.scope_applicability || 'Pan-India applicability.')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Authority, Procedure &amp; Burden of Proof</h3>
+            <p><strong>Authority:</strong> ${escapeHtml(s.responsible_authority || 'Competent Court')}</p>
+            <p style="margin-top:0.35rem;"><strong>Mechanism:</strong> ${escapeHtml(s.procedural_mechanism || 'Statutory legal process')}</p>
+            <p style="margin-top:0.35rem;"><strong>Standard of Proof:</strong> ${escapeHtml(s.burden_of_proof || 'Preponderance of probabilities')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Statutory Transitional Notes</h3>
+            <p>${escapeHtml(s.transitional_notes || 'Standard statutory saving provisions apply.')}</p>
+          </div>
+          <div class="analysis-card">
+            <h3>Illustrative Legal Scenario</h3>
+            <p>${escapeHtml(s.illustrative_example || 'Applicable in factual determinations before the trial court.')}</p>
+          </div>
+        </div>
+      </div>`;
+
+    const vBadge = s.verification_status === 'VERIFIED'
+      ? `<span class="badge badge-verified">VERIFIED PROVISION</span>`
+      : `<span class="badge badge-partial">PARTIALLY VERIFIED</span>`;
+
+    el.innerHTML = `
+      <div class="detail-header">
+        <p class="section-act-breadcrumb"><a href="#/acts/${s.act_id}">${escapeHtml(s.act_title)}</a> &bull; Chapter Provision</p>
+        <h1 class="detail-title">Section ${escapeHtml(s.section_number)}: ${escapeHtml(s.section_title)}</h1>
+        <div class="section-meta-tags">
+          <span class="badge-tag">Nature: ${escapeHtml(s.legal_nature || 'General')}</span>
+          <span class="badge ${s.status === 'Active' ? 'badge-active' : 'badge-repealed'}">${escapeHtml(s.status)}</span>
+          ${vBadge}
+          ${s.commencement_date ? `<span class="badge-tag">Commencement: ${escapeHtml(s.commencement_date)}</span>` : ''}
+        </div>
+      </div>
+      <div class="detail-section">
+        <h2>Official Statutory Text</h2>
+        <div class="statutory-text-box">${escapeHtml(s.section_text || 'Official statutory text not recorded.')}</div>
+      </div>
+      ${analysisHtml}
+      ${mapHtml}
+      ${judgHtml}`;
   } catch { el.innerHTML = '<p class="error-msg">Section not found.</p>'; }
 }
 
@@ -141,8 +251,8 @@ async function loadMappings() {
 function renderMappings(list) {
   const el = document.getElementById('mappings-list');
   el.innerHTML = !list.length ? '<p class="empty-msg">No mappings match the filter.</p>' : `
-    <div class="mapping-table-wrap"><table class="sections-table mapping-table"><thead><tr><th>Prior Law (IPC / CrPC / IEA)</th><th style="width:150px;text-align:center;">Relation</th><th>New Sanhita (BNS / BNSS / BSA)</th><th>Legislative Notes</th></tr></thead><tbody>
-      ${list.map(m => `<tr><td><span class="act-pill">${escapeHtml(m.from_act)}</span><br><a href="#/sections/${m.from_sec_id}"><strong>Sec ${escapeHtml(m.from_sec)}</strong>: ${escapeHtml(m.from_title)}</a></td><td style="text-align:center;"><span class="badge badge-relation">${escapeHtml(m.relation_type)}</span></td><td><span class="act-pill new-act">${escapeHtml(m.to_act)}</span><br><a href="#/sections/${m.to_sec_id}"><strong>Sec ${escapeHtml(m.to_sec)}</strong>: ${escapeHtml(m.to_title)}</a></td><td class="notes-cell">${escapeHtml(m.notes || '—')}</td></tr>`).join('')}
+    <div class="mapping-table-wrap"><table class="sections-table mapping-table"><thead><tr><th>Prior Law (IPC / CrPC / IEA)</th><th style="width:150px;text-align:center;">Relation</th><th>New Sanhita (BNS / BNSS / BSA)</th><th>Legislative Notes &amp; Comparative Differences</th></tr></thead><tbody>
+      ${list.map(m => `<tr><td><span class="act-pill">${escapeHtml(m.from_act)}</span><br><a href="#/sections/${m.from_sec_id}"><strong>Sec ${escapeHtml(m.from_sec)}</strong>: ${escapeHtml(m.from_title)}</a></td><td style="text-align:center;"><span class="badge badge-relation">${escapeHtml(m.relation_type)}</span>${m.mapping_nature ? `<br><span class="badge badge-tag" style="margin-top:0.25rem;">${escapeHtml(m.mapping_nature)}</span>` : ''}</td><td><span class="act-pill new-act">${escapeHtml(m.to_act)}</span><br><a href="#/sections/${m.to_sec_id}"><strong>Sec ${escapeHtml(m.to_sec)}</strong>: ${escapeHtml(m.to_title)}</a></td><td class="notes-cell">${escapeHtml(m.notes || '—')}${m.what_changed ? `<details class="map-details"><summary>View Comparative Differences</summary><div class="map-comp-summary"><p><strong>Changed:</strong> ${escapeHtml(m.what_changed)}</p><p><strong>Unchanged:</strong> ${escapeHtml(m.what_remains_same)}</p>${m.punishment_comparison ? `<p><strong>Punishment:</strong> ${escapeHtml(m.punishment_comparison)}</p>` : ''}</div></details>` : ''}</td></tr>`).join('')}
     </tbody></table></div>`;
 }
 

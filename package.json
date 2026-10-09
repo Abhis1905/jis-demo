@@ -1,14 +1,26 @@
 {
   "name": "jis-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Judiciary Information System — Indian case law, statutory acts, and criminal law transition concordance repository",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test test/api.test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "judiciary",
+    "legal-tech",
+    "indian-law",
+    "case-law",
+    "bns",
+    "crpc",
+    "ipc",
+    "nodejs",
+    "express",
+    "mysql"
+  ],
+  "author": "Abhishek Kumar",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^18.0.6",
     "express": "^5.2.1",

@@ -5,10 +5,31 @@ node_modules/
 .env
 .env.local
 .env.*.local
+.env.extraction
+.env.extraction.local
 *.env
 *.pem
 *.key
 *.cert
+
+# Database Backups & Dumps
+# (Safely ignore local dumps and backups while preserving versioned migrations in sql/)
+*.dump
+*.sql.gz
+*.sql.bak
+data/test_backup/
+data/backup_phase2_comprehensive/
+!sql/*.sql
+
+# Bulk Extraction & Intermediate Processing Artifacts
+data/bulk_extraction_*/
+data/pilot_extraction/
+data/validation_audit/
+data/enriched_all_sections_catalog.json
+data/enriched_judgment_links.json
+data/enriched_section_mappings.json
+data/*_audit.json
+data/*_overview.json
 
 # macOS & Operating System Files
 .DS_Store

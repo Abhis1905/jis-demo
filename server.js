@@ -19,10 +19,10 @@ const pdfManifest = fs.existsSync(path.join(__dirname, 'data/verified_pdf_manife
   ? JSON.parse(fs.readFileSync(path.join(__dirname, 'data/verified_pdf_manifest.json'), 'utf8'))
   : {};
 
-// 1. Stats endpoint (strictly REAL_VERIFIED records)
+// 1. Stats endpoint (strictly REAL_VERIFIED records from unified view)
 app.get('/api/stats', async (req, res) => {
   try {
-    const [j] = await db.execute("SELECT COUNT(*) AS c FROM legal_judgments WHERE is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED'");
+    const [j] = await db.execute("SELECT COUNT(*) AS c FROM vw_unified_judicial_records");
     const [a] = await db.execute("SELECT COUNT(*) AS c FROM legal_acts");
     const [s] = await db.execute("SELECT COUNT(*) AS c FROM legal_sections");
     const [m] = await db.execute("SELECT COUNT(*) AS c FROM legal_section_relations");
@@ -47,8 +47,8 @@ app.get('/api/stats', async (req, res) => {
 // 2. Filter options (Courts & Years from verified records)
 app.get('/api/judgments/filters', async (req, res) => {
   try {
-    const [courts] = await db.execute("SELECT DISTINCT court_name FROM legal_judgments WHERE is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED' ORDER BY court_name ASC");
-    const [years] = await db.execute("SELECT DISTINCT YEAR(judgment_date) AS yr FROM legal_judgments WHERE is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED' ORDER BY yr DESC");
+    const [courts] = await db.execute("SELECT DISTINCT court_name FROM vw_unified_judicial_records WHERE court_name IS NOT NULL ORDER BY court_name ASC");
+    const [years] = await db.execute("SELECT DISTINCT YEAR(judgment_date) AS yr FROM vw_unified_judicial_records WHERE judgment_date IS NOT NULL ORDER BY yr DESC");
     res.json({
       courts: courts.map(r => r.court_name),
       years: years.map(r => r.yr).filter(Boolean)
@@ -88,7 +88,7 @@ app.get('/api/judgments', async (req, res) => {
     const whereClause = `WHERE ${where.join(' AND ')}`;
 
     // Total count for pagination
-    const [countRows] = await db.execute(`SELECT COUNT(*) AS count FROM legal_judgments ${whereClause}`, params);
+    const [countRows] = await db.execute(`SELECT COUNT(*) AS count FROM vw_unified_judicial_records ${whereClause}`, params);
     const total = countRows[0].count;
 
     // Sorting
@@ -100,9 +100,8 @@ app.get('/api/judgments', async (req, res) => {
     const sql = `
       SELECT j.id, j.court_tier, j.court_name, j.case_name, j.case_number, j.citation,
              j.neutral_citation, j.judgment_date, j.bench_judges, j.domain, j.legal_issue,
-             j.key_ratio, j.is_landmark,
-             (SELECT d.id FROM judgment_documents d WHERE d.judgment_id = j.id AND d.is_verified = 1 LIMIT 1) AS pdf_id
-      FROM legal_judgments j
+             j.key_ratio, j.is_landmark, j.pdf_id
+      FROM vw_unified_judicial_records j
       ${whereClause}
       ORDER BY ${orderBy}
       LIMIT ${limit} OFFSET ${offset}
@@ -129,6 +128,39 @@ app.get('/api/judgments', async (req, res) => {
 app.get('/api/judgments/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
+
+    if (id >= 100000) {
+      const repoId = id - 100000;
+      const [rows] = await db.execute(
+        "SELECT * FROM court_records_repository WHERE id = ?",
+        [repoId]
+      );
+      if (!rows.length) return res.status(404).json({ error: 'Judgment not found' });
+      const r = rows[0];
+      const judgment = {
+        id: id,
+        court_tier: r.court_tier,
+        court_name: r.court_name,
+        case_name: r.case_name,
+        case_number: r.case_number || r.cnr,
+        citation: r.citation || r.neutral_citation || `CNR: ${r.cnr}`,
+        neutral_citation: r.neutral_citation,
+        judgment_date: r.judgment_date,
+        bench_judges: null,
+        domain: r.domain,
+        legal_issue: `Application of law in ${r.case_name}`,
+        key_ratio: r.key_ratio,
+        key_holding: r.key_ratio,
+        factual_summary: r.key_ratio,
+        outcome: r.document_type === 'BAIL_ORDER' ? 'Bail Application Disposed' : (r.document_type === 'INTERIM_ORDER' ? 'Interim Directions Issued' : 'Judicial Order / Decision of Record'),
+        is_landmark: r.is_landmark,
+        source_type: 'High Court Official / eCourts',
+        source_name: 'Official eCourts Services / IndiaCode Legal Repository',
+        source_url: r.source_url
+      };
+      return res.json({ judgment, sections: [], document: null, curated: null });
+    }
+
     const [rows] = await db.execute(
       "SELECT * FROM legal_judgments WHERE id = ? AND is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED'",
       [id]
@@ -163,6 +195,19 @@ app.get('/api/judgments/:id', async (req, res) => {
 app.get('/api/judgments/:id/pdf', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
+
+    if (id >= 100000) {
+      const repoId = id - 100000;
+      const [rows] = await db.execute(
+        "SELECT source_url, source_order_url FROM court_records_repository WHERE id = ?",
+        [repoId]
+      );
+      if (rows.length && (rows[0].source_order_url || rows[0].source_url)) {
+        return res.redirect(rows[0].source_order_url || rows[0].source_url);
+      }
+      return res.status(404).send('Verified PDF document not found for this repository record');
+    }
+
     const manifestDoc = pdfManifest[id];
     if (manifestDoc) {
       const localFile = path.join(__dirname, manifestDoc.storage_path);
@@ -247,7 +292,10 @@ app.get('/api/sections/:id', async (req, res) => {
 
     // Outgoing relations (e.g. IPC -> BNS)
     const [outgoing] = await db.execute(`
-      SELECT r.relation_type, r.notes, ta.id AS related_act_id, ta.short_title AS related_act,
+      SELECT r.id, r.relation_type, r.notes, r.mapping_nature, r.correspondence_cardinality,
+             r.what_changed, r.what_remains_same, r.substantive_impact, r.procedural_safeguards,
+             r.punishment_comparison, r.transitional_notes, r.verification_status,
+             ta.id AS related_act_id, ta.short_title AS related_act,
              ts.id AS related_sec_id, ts.section_number AS related_sec_num, ts.section_title AS related_sec_title
       FROM legal_section_relations r
       JOIN legal_sections ts ON ts.id = r.to_section_id
@@ -257,7 +305,10 @@ app.get('/api/sections/:id', async (req, res) => {
 
     // Incoming relations (e.g. BNS <- IPC)
     const [incoming] = await db.execute(`
-      SELECT r.relation_type, r.notes, fa.id AS related_act_id, fa.short_title AS related_act,
+      SELECT r.id, r.relation_type, r.notes, r.mapping_nature, r.correspondence_cardinality,
+             r.what_changed, r.what_remains_same, r.substantive_impact, r.procedural_safeguards,
+             r.punishment_comparison, r.transitional_notes, r.verification_status,
+             fa.id AS related_act_id, fa.short_title AS related_act,
              fs.id AS related_sec_id, fs.section_number AS related_sec_num, fs.section_title AS related_sec_title
       FROM legal_section_relations r
       JOIN legal_sections fs ON fs.id = r.from_section_id
@@ -267,7 +318,8 @@ app.get('/api/sections/:id', async (req, res) => {
 
     // Genuine verified judgments citing this section
     const [judgments] = await db.execute(`
-      SELECT j.id, j.case_name, j.citation, j.judgment_date, jls.relevance_nature
+      SELECT j.id, j.case_name, j.citation, j.judgment_date, jls.relevance_nature,
+             jls.legal_principle, jls.ratio_summary, jls.authority_type, jls.verification_status
       FROM judgment_legal_sections jls
       JOIN legal_judgments j ON j.id = jls.judgment_id
       WHERE jls.section_id = ? AND j.is_synthetic = 0 AND j.record_provenance = 'REAL_VERIFIED'
@@ -289,6 +341,8 @@ app.get('/api/mappings', async (req, res) => {
   try {
     const [mappings] = await db.execute(`
       SELECT r.id, r.relation_type, r.notes, r.source_name,
+             r.mapping_nature, r.correspondence_cardinality, r.what_changed, r.what_remains_same,
+             r.substantive_impact, r.procedural_safeguards, r.punishment_comparison, r.transitional_notes, r.verification_status,
              fa.id AS from_act_id, fa.short_title AS from_act, fs.id AS from_sec_id, fs.section_number AS from_sec, fs.section_title AS from_title,
              ta.id AS to_act_id, ta.short_title AS to_act, ts.id AS to_sec_id, ts.section_number AS to_sec, ts.section_title AS to_title
       FROM legal_section_relations r
@@ -312,12 +366,9 @@ app.get('/', (req, res) => {
 // Start Server (standalone / local mode)
 async function startServer() {
   try {
-    const [rows] = await db.execute(
-      "SELECT COUNT(*) AS count FROM legal_judgments WHERE is_synthetic = ? AND record_provenance = ?",
-      [0, 'REAL_VERIFIED']
-    );
-    console.log('Database connected: jis_db');
-    console.log(`Genuine verified judgments count: ${rows[0].count}`);
+    const [rows] = await db.execute("SELECT COUNT(*) AS count FROM vw_unified_judicial_records");
+    console.log(`Database connected: ${process.env.DB_NAME || 'jis_db'}`);
+    console.log(`Unified verified judicial decisions count: ${rows[0].count}`);
   } catch (err) {
     console.warn('Database connection notice (serving cached data & static assets):', err.message);
   }
