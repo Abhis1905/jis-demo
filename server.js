@@ -8,6 +8,34 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
+
+// CORS configuration (allow Vercel frontend, local development, and configured origins)
+const allowedOrigins = [
+  'https://jis-demo.vercel.app',
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim()) : [])
+];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    const isAllowed = allowedOrigins.includes(origin) ||
+      (process.env.NODE_ENV !== 'production' && /^http:\/\/localhost(:\d+)?$/.test(origin));
+    if (isAllowed) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Vary', 'Origin');
+    }
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -18,6 +46,27 @@ const caseRecords = fs.existsSync(path.join(__dirname, 'data/case_records.json')
 const pdfManifest = fs.existsSync(path.join(__dirname, 'data/verified_pdf_manifest.json'))
   ? JSON.parse(fs.readFileSync(path.join(__dirname, 'data/verified_pdf_manifest.json'), 'utf8'))
   : {};
+
+// Health check and database readiness probe
+app.get('/health', async (req, res) => {
+  try {
+    await db.execute('SELECT 1 AS ok');
+    res.status(200).json({
+      status: 'healthy',
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+      database: 'connected'
+    });
+  } catch (err) {
+    res.status(503).json({
+      status: 'degraded',
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString(),
+      database: 'disconnected',
+      error: 'Database connection unavailable'
+    });
+  }
+});
 
 // 1. Stats endpoint (strictly REAL_VERIFIED records from unified view)
 app.get('/api/stats', async (req, res) => {
@@ -391,18 +440,19 @@ app.get('/', (req, res) => {
 async function startServer() {
   try {
     const [rows] = await db.execute("SELECT COUNT(*) AS count FROM vw_unified_judicial_records");
-    console.log(`Database connected: ${process.env.DB_NAME || 'jis_db'}`);
-    console.log(`Unified verified judicial decisions count: ${rows[0].count}`);
+    console.log(`[JIS Server] Database connected: ${process.env.DB_NAME || 'database'}`);
+    console.log(`[JIS Server] Unified verified judicial decisions count: ${rows[0].count}`);
   } catch (err) {
-    console.warn('Database connection notice (serving cached data & static assets):', err.message);
+    console.warn(`[JIS Server] Database connectivity notice (${err.code || 'UNAVAILABLE'}): ${err.message}`);
+    console.warn('[JIS Server] Starting in degraded mode. Verify database credentials and network reachability.');
   }
 
   const server = app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`[JIS Server] Running on port ${PORT} (NODE_ENV: ${process.env.NODE_ENV || 'development'})`);
   });
 
   server.on('error', (err) => {
-    console.error('Server error:', err.message);
+    console.error('[JIS Server] Fatal server error:', err.message);
     process.exit(1);
   });
 }

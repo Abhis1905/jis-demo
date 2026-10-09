@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test test/api.test.js"
+    "test": "node --test test/api.test.js",
+    "db:init:hosted": "node scripts/init_hosted_db.js",
+    "db:verify": "node scripts/verify_db_target.js"
   },
   "keywords": [
     "judiciary",

@@ -110,4 +110,26 @@ test('JIS REST API Live Contract Verification', async (t) => {
     const resNotFound = await fetch(`${baseUrl}/api/judgments/999999/pdf`);
     assert.strictEqual(resNotFound.status, 404);
   });
+
+  await t.test('GET /health returns 200 with healthy status and connected database', async () => {
+    const res = await fetch(`${baseUrl}/health`);
+    assert.strictEqual(res.status, 200);
+    const data = await res.json();
+    assert.strictEqual(data.status, 'healthy');
+    assert.strictEqual(data.database, 'connected');
+    assert.ok(typeof data.uptime === 'number', 'uptime should be a number');
+    assert.ok(data.timestamp, 'timestamp should be present');
+  });
+
+  await t.test('CORS headers allow Vercel production frontend origin', async () => {
+    const res = await fetch(`${baseUrl}/api/stats`, {
+      method: 'OPTIONS',
+      headers: {
+        'Origin': 'https://jis-demo.vercel.app',
+        'Access-Control-Request-Method': 'GET'
+      }
+    });
+    assert.strictEqual(res.status, 204);
+    assert.strictEqual(res.headers.get('access-control-allow-origin'), 'https://jis-demo.vercel.app');
+  });
 });

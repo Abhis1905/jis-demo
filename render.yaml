@@ -1,0 +1,64 @@
+version: "1"
+services:
+  # -------------------------------------------------------------
+  # 1. Private MySQL 8 Service (Internal VPC - Singapore Region)
+  # -------------------------------------------------------------
+  - type: pserv
+    name: jis-mysql
+    runtime: image
+    image:
+      url: docker.io/library/mysql:8.0
+    region: singapore
+    plan: starter # Starter ($7/mo) required for persistent disk attachment
+    disk:
+      name: jis-mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10 # 10 GB ($2.50/mo), covers initial dataset + indexes with ample headroom
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: jis_test_db # Explicitly isolated hosted test database
+      - key: MYSQL_USER
+        value: jis_user
+      - key: MYSQL_PASSWORD
+        generateValue: true
+
+  # -------------------------------------------------------------
+  # 2. Web Service (Node.js Express API - Singapore Region)
+  # -------------------------------------------------------------
+  - type: web
+    name: jis-backend
+    runtime: node
+    region: singapore
+    plan: free # Free tier ($0/mo) or Starter ($7/mo) for 24/7 always-on
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ALLOWED_ORIGINS
+        value: https://jis-demo.vercel.app,http://localhost:3000,http://localhost:3001
+      - key: DB_HOST
+        fromService:
+          type: pserv
+          name: jis-mysql
+          property: host
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_NAME
+        value: jis_test_db # Targets the hosted test database
+      - key: DB_USER
+        value: jis_user
+      - key: DB_PASSWORD
+        fromService:
+          type: pserv
+          name: jis-mysql
+          envVarKey: MYSQL_PASSWORD
+      - key: DB_SSL
+        value: "false" # VPC-internal network communication in same region
+      - key: DB_CONNECTION_LIMIT
+        value: "10"

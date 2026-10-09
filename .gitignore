@@ -15,6 +15,7 @@ node_modules/
 # Database Backups & Dumps
 # (Safely ignore local dumps and backups while preserving versioned migrations in sql/)
 *.dump
+*.sql
 *.sql.gz
 *.sql.bak
 data/test_backup/
