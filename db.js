@@ -1,16 +1,22 @@
 require('dotenv').config();
+const fs = require('fs');
 const mysql = require('mysql2/promise');
 
 function getSslConfig() {
   if (process.env.DB_SSL === 'false' || process.env.DB_SSL === '0') {
     return undefined;
   }
-  if (process.env.DB_SSL === 'true' || process.env.DB_SSL === '1' || process.env.DB_CA) {
+  const caSource = process.env.DB_CA || process.env.DB_CA_CERT || process.env.DB_CA_PATH;
+  if (process.env.DB_SSL === 'true' || process.env.DB_SSL === '1' || caSource) {
     const ssl = {
       rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED !== 'false'
     };
-    if (process.env.DB_CA) {
-      ssl.ca = process.env.DB_CA;
+    if (caSource) {
+      if (fs.existsSync(caSource)) {
+        ssl.ca = fs.readFileSync(caSource, 'utf8');
+      } else {
+        ssl.ca = caSource;
+      }
     }
     return ssl;
   }
@@ -48,4 +54,5 @@ if (process.env.DATABASE_URL || process.env.MYSQL_URL) {
   });
 }
 
+pool.getSslConfig = getSslConfig;
 module.exports = pool;

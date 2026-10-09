@@ -3,10 +3,12 @@
  * 
  * Verifies that the connected database strictly matches the expected target.
  * Rejects and terminates if the database name is unexpected or touches production.
+ * Supports TLS/SSL for cloud MySQL providers (e.g., Aiven Free MySQL).
  */
 
 require('dotenv').config();
 const mysql = require('mysql2/promise');
+const { getSslConfig } = require('../db');
 
 async function verifyDbTarget(expectedDb = 'jis_test_db') {
   const configuredDb = process.env.DB_NAME;
@@ -30,16 +32,24 @@ async function verifyDbTarget(expectedDb = 'jis_test_db') {
     process.exit(1);
   }
 
-  const pool = mysql.createPool({
-    host: process.env.DB_HOST || '127.0.0.1',
-    port: parseInt(process.env.DB_PORT || '3306', 10),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: configuredDb,
+  const ssl = typeof getSslConfig === 'function' ? getSslConfig() : undefined;
+  const poolConfig = {
     waitForConnections: true,
     connectionLimit: 2,
-    connectTimeout: 5000
-  });
+    connectTimeout: 10000,
+    ssl
+  };
+
+  const pool = (process.env.DATABASE_URL || process.env.MYSQL_URL)
+    ? mysql.createPool(process.env.DATABASE_URL || process.env.MYSQL_URL, poolConfig)
+    : mysql.createPool({
+        host: process.env.DB_HOST || '127.0.0.1',
+        port: parseInt(process.env.DB_PORT || '3306', 10),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: configuredDb,
+        ...poolConfig
+      });
 
   try {
     const [rows] = await pool.query('SELECT DATABASE() AS current_db, USER() AS active_user, @@version AS mysql_version');

@@ -3,6 +3,7 @@
  * 
  * Safely initializes the 12 base tables and unified view in the target database.
  * Strictly enforces database isolation safeguards before executing DDL.
+ * Supports TLS/SSL for cloud MySQL providers (e.g., Aiven Free MySQL).
  */
 
 require('dotenv').config();
@@ -10,6 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const mysql = require('mysql2/promise');
 const { verifyDbTarget } = require('./verify_db_target');
+const { getSslConfig } = require('../db');
 
 async function initHostedDatabase() {
   const targetDb = process.env.DB_NAME || 'jis_test_db';
@@ -20,17 +22,25 @@ async function initHostedDatabase() {
   console.log('------------------------------------------------------------');
   await verifyDbTarget(targetDb);
 
-  const pool = mysql.createPool({
-    host: process.env.DB_HOST || '127.0.0.1',
-    port: parseInt(process.env.DB_PORT || '3306', 10),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: targetDb,
+  const ssl = typeof getSslConfig === 'function' ? getSslConfig() : undefined;
+  const poolConfig = {
     multipleStatements: true,
     waitForConnections: true,
     connectionLimit: 2,
-    connectTimeout: 10000
-  });
+    connectTimeout: 15000,
+    ssl
+  };
+
+  const pool = (process.env.DATABASE_URL || process.env.MYSQL_URL)
+    ? mysql.createPool(process.env.DATABASE_URL || process.env.MYSQL_URL, poolConfig)
+    : mysql.createPool({
+        host: process.env.DB_HOST || '127.0.0.1',
+        port: parseInt(process.env.DB_PORT || '3306', 10),
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: targetDb,
+        ...poolConfig
+      });
 
   try {
     const schemaSqlPath = path.join(__dirname, '../sql/schema_init_hosted_db.sql');
