@@ -207,13 +207,17 @@ Tests verify module exports, route availability, live API contracts, schema inte
 
 ## Data Provenance & Verification
 
-- **Landmark Provisions (Cohort 1, 72 sections)**: Verbatim statutory text, essential ingredients, statutory exceptions, penalties, and Supreme Court precedent citations validated against official Gazette publications.
-- **General Provisions (Cohort 2, 2,347 sections)**: Marginal headings, commencement dates, and chapter classifications validated against India Code, with plain explanations structured under chapter-level statutory norms.
-- **Document Availability**: 82 verified Supreme Court judgments feature locally stored official PDFs; remaining court records provide verified links to official High Court eCourts orders.
+- **Judicial Records Provenance**: The platform maintains an explicit provenance boundary in the database (`record_provenance`). 500 historical development records are cataloged as `SYNTHETIC_REPRESENTATIVE` (`is_synthetic = 1`) and strictly excluded from public search, filters, and statistics. The public repository serves 4,984 authentic judicial decisions (`REAL_VERIFIED`, `is_synthetic = 0`), comprising 105 curated landmark cases and 4,879 court decisions sourced from official eCourts portals and High Court registries.
+- **Statutory Provisions Depth**:
+  - **Landmark Provisions (Cohort 1, 72 sections)**: Verbatim statutory text, essential legal ingredients, exceptions, statutory penalties, and Supreme Court precedent citations validated against official Gazette publications.
+  - **General Provisions (Cohort 2, 2,347 sections)**: Baseline India Code statutory provisions featuring official marginal headings, commencement dates, and chapter classifications, accompanied by structured explanatory references. Precedent cross-links are attached only where explicit citation evidence is documented.
+- **Document Availability**: 82 verified Supreme Court landmark judgments feature locally stored official PDFs validated by binary file signatures (`%PDF-`). Records without local PDF storage redirect or link directly to authentic court record URLs on the official Supreme Court DigiSCR or High Court eCourts portals.
 - **Transitional Law**: Concordance records strictly reference statutory saving provisions (Section 358 BNS, Section 531 BNSS, Section 170 BSA) ensuring accurate guidance for pending vs. post-July 1, 2024 proceedings.
 
 ---
 
-## License
+## License & Third-Party Legal Notice
 
-This project is licensed under the [MIT License](LICENSE). Judicial decisions and statutory enactments cited are public records under Indian law.
+The application source code, configuration templates, and operational scripts are licensed under the [MIT License](LICENSE). 
+
+Judicial decisions, court orders, statutory acts, and legislative enactments cited or referenced within this repository are public legal documents and government records. The project authors make no representations or warranties regarding third-party redistribution rights; users and downstream redistributors are solely responsible for compliance with applicable court rules, copyright laws, and source institutional terms.

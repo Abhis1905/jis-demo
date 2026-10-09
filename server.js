@@ -191,6 +191,20 @@ app.get('/api/judgments/:id', async (req, res) => {
   }
 });
 
+// Helper: Validate PDF magic bytes (%PDF-) to prevent serving non-PDF or challenge pages
+function isGenuinePdf(filePath) {
+  try {
+    if (!fs.existsSync(filePath)) return false;
+    const fd = fs.openSync(filePath, 'r');
+    const buffer = Buffer.alloc(5);
+    fs.readSync(fd, buffer, 0, 5, 0);
+    fs.closeSync(fd);
+    return buffer.toString('utf-8') === '%PDF-';
+  } catch {
+    return false;
+  }
+}
+
 // 5. PDF access endpoint
 app.get('/api/judgments/:id/pdf', async (req, res) => {
   try {
@@ -211,7 +225,7 @@ app.get('/api/judgments/:id/pdf', async (req, res) => {
     const manifestDoc = pdfManifest[id];
     if (manifestDoc) {
       const localFile = path.join(__dirname, manifestDoc.storage_path);
-      if (fs.existsSync(localFile)) {
+      if (isGenuinePdf(localFile)) {
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', `inline; filename="${manifestDoc.original_filename}"`);
         return fs.createReadStream(localFile).pipe(res);
@@ -225,19 +239,29 @@ app.get('/api/judgments/:id/pdf', async (req, res) => {
       LIMIT 1
     `, [id]);
 
-    if (!docs.length) return res.status(404).send('Verified PDF document not found');
-    const doc = docs[0];
+    if (docs.length) {
+      const doc = docs[0];
+      const localFile = path.join(__dirname, doc.storage_path);
+      if (isGenuinePdf(localFile)) {
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `inline; filename="${doc.original_filename}"`);
+        return fs.createReadStream(localFile).pipe(res);
+      }
+      if (doc.source_url) {
+        return res.redirect(doc.source_url);
+      }
+    }
 
-    const localFile = path.join(__dirname, doc.storage_path);
-    if (fs.existsSync(localFile)) {
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', `inline; filename="${doc.original_filename}"`);
-      return fs.createReadStream(localFile).pipe(res);
+    // Direct official source fallback from legal_judgments
+    const [judgRows] = await db.execute(
+      "SELECT source_url, full_judgment_url FROM legal_judgments WHERE id = ? AND is_synthetic = 0 AND record_provenance = 'REAL_VERIFIED'",
+      [id]
+    );
+    if (judgRows.length && (judgRows[0].full_judgment_url || judgRows[0].source_url)) {
+      return res.redirect(judgRows[0].full_judgment_url || judgRows[0].source_url);
     }
-    if (doc.source_url) {
-      return res.redirect(doc.source_url);
-    }
-    res.status(404).send('PDF file not accessible');
+
+    res.status(404).send('Verified PDF document not found');
   } catch (err) {
     res.status(500).send(err.message);
   }

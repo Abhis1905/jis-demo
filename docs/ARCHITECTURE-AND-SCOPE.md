@@ -18,7 +18,7 @@ This document delineates the **Current Implemented Production Scope** of `jis-de
 │   (Active in jis-demo Today)     │      │   (Enterprise E-Courts System)   │
 ├──────────────────────────────────┤      ├──────────────────────────────────┤
 │ • 105 Real Verified Judgments    │      │ • E-Filing & Registry Scrutiny   │
-│ • 98 Authenticated Registry PDFs │      │ • Case Management & Litigants    │
+│ • 82 Authenticated Registry PDFs │      │ • Case Management & Litigants    │
 │ • 10 Statutory Enactments        │      │ • Court Roster & Bench Allocation│
 │ • 2,419 Statutory Sections       │      │ • Cause Lists & Hearing Notes    │
 │ • 149 Transition Concordances    │      │ • Interim Orders & Bail Signing  │
@@ -37,7 +37,7 @@ This document delineates the **Current Implemented Production Scope** of `jis-de
 | :--- | :--- | :--- | :--- |
 | **Constitutional Homepage** | ✅ **Implemented** (Authentic emblem, preamble values, Sanskrit motto) | Future multi-portal entrance | `None` (Static semantic UI) |
 | **Verified Judgments Repository** | ✅ **Implemented** (105 real verified landmark cases, live search & filters) | National full-text precedent search | `legal_judgments` (105 rows) |
-| **Verified Judgment PDFs** | ✅ **Implemented** (98 authentic Supreme Court PDFs with SHA-256 validation) | S3-compliant distributed document store | `judgment_documents` + `verified_pdf_manifest.json` |
+| **Verified Judgment PDFs** | ✅ **Implemented** (82 authentic Supreme Court PDFs with SHA-256 validation) | S3-compliant distributed document store | `judgment_documents` + `verified_pdf_manifest.json` |
 | **Statutory Acts & Codes** | ✅ **Implemented** (10 Acts: IPC, CrPC, IEA, BNS, BNSS, BSA, Constitution, etc.) | National legislative updates API | `legal_acts` (10 rows) |
 | **Legislative Sections** | ✅ **Implemented** (2,419 provisions with marginal notes and full texts) | Complete All-India statutory corpus | `legal_sections` (2,419 rows) |
 | **Concordance Matrix** | ✅ **Implemented** (149 transitions from colonial codes to new Sanhitas) | Automated concordance cross-linker | `legal_section_relations` (149 rows) |

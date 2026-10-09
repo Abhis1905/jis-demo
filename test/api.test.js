@@ -43,6 +43,7 @@ test('JIS REST API Live Contract Verification', async (t) => {
     assert.strictEqual(data.legal_acts, 10, 'Platform must host 10 statutory acts');
     assert.strictEqual(data.legal_sections, 2419, 'Platform must host 2,419 statutory provisions');
     assert.strictEqual(data.section_mappings, 149, 'Platform must host 149 concordance mappings');
+    assert.strictEqual(data.verified_pdfs, 82, 'Platform must host 82 verified local PDFs');
   });
 
   await t.test('GET /api/judgments/filters returns court tiers and years', async () => {
@@ -91,5 +92,22 @@ test('JIS REST API Live Contract Verification', async (t) => {
   await t.test('GET /api/judgments/:id returns 404 for non-existent record', async () => {
     const res = await fetch(`${baseUrl}/api/judgments/999999`);
     assert.strictEqual(res.status, 404);
+  });
+
+  await t.test('GET /api/judgments/:id/pdf serves authentic PDF or redirects to source', async () => {
+    // 1. Genuine local PDF stream
+    const resLocal = await fetch(`${baseUrl}/api/judgments/11/pdf`);
+    assert.strictEqual(resLocal.status, 200);
+    assert.strictEqual(resLocal.headers.get('content-type'), 'application/pdf');
+
+    // 2. Official DigiSCR source redirect when local PDF is not stored
+    const resRedirect = await fetch(`${baseUrl}/api/judgments/39/pdf`, { redirect: 'manual' });
+    assert.strictEqual(resRedirect.status, 302);
+    const location = resRedirect.headers.get('location');
+    assert.ok(location && location.includes('digiscr.sci.gov.in'), 'should redirect to official DigiSCR URL');
+
+    // 3. Non-existent document
+    const resNotFound = await fetch(`${baseUrl}/api/judgments/999999/pdf`);
+    assert.strictEqual(resNotFound.status, 404);
   });
 });

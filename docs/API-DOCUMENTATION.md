@@ -22,7 +22,7 @@ Returns aggregate statistics of the legal knowledge base and court repository.
   "legal_acts": 10,
   "legal_sections": 2419,
   "section_mappings": 149,
-  "verified_pdfs": 98
+  "verified_pdfs": 82
 }
 ```
 
