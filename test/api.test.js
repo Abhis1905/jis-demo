@@ -132,4 +132,24 @@ test('JIS REST API Live Contract Verification', async (t) => {
     assert.strictEqual(res.status, 204);
     assert.strictEqual(res.headers.get('access-control-allow-origin'), 'https://jis-demo.vercel.app');
   });
+
+  await t.test('Read-only endpoints supply shared edge cache headers', async () => {
+    const cachedEndpoints = ['/api/stats', '/api/judgments/filters', '/api/acts', '/api/mappings'];
+    for (const ep of cachedEndpoints) {
+      const res = await fetch(`${baseUrl}${ep}`);
+      assert.strictEqual(res.status, 200, `${ep} should return 200`);
+      assert.strictEqual(
+        res.headers.get('cache-control'),
+        'public, s-maxage=300, stale-while-revalidate=600',
+        `${ep} should include public, s-maxage=300, stale-while-revalidate=600`
+      );
+    }
+  });
+
+  await t.test('Dynamic endpoints do not set s-maxage edge cache header', async () => {
+    const res = await fetch(`${baseUrl}/api/judgments?page=1&limit=5`);
+    assert.strictEqual(res.status, 200);
+    const cc = res.headers.get('cache-control');
+    assert.ok(!cc || !cc.includes('s-maxage'), 'dynamic /api/judgments query must not set s-maxage');
+  });
 });

@@ -75,6 +75,7 @@ app.get('/api/stats', async (req, res) => {
     const [a] = await db.execute("SELECT COUNT(*) AS c FROM legal_acts");
     const [s] = await db.execute("SELECT COUNT(*) AS c FROM legal_sections");
     const [m] = await db.execute("SELECT COUNT(*) AS c FROM legal_section_relations");
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
     res.json({
       real_judgments: j[0].c,
       legal_acts: a[0].c,
@@ -83,7 +84,8 @@ app.get('/api/stats', async (req, res) => {
       verified_pdfs: Object.keys(pdfManifest).length
     });
   } catch (err) {
-    res.json({
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(500).json({
       real_judgments: Object.keys(caseRecords).length || 105,
       legal_acts: 10,
       legal_sections: 2419,
@@ -98,12 +100,14 @@ app.get('/api/judgments/filters', async (req, res) => {
   try {
     const [courts] = await db.execute("SELECT DISTINCT court_name FROM vw_unified_judicial_records WHERE court_name IS NOT NULL ORDER BY court_name ASC");
     const [years] = await db.execute("SELECT DISTINCT YEAR(judgment_date) AS yr FROM vw_unified_judicial_records WHERE judgment_date IS NOT NULL ORDER BY yr DESC");
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
     res.json({
       courts: courts.map(r => r.court_name),
       years: years.map(r => r.yr).filter(Boolean)
     });
   } catch (err) {
-    res.json({
+    res.setHeader('Cache-Control', 'no-store');
+    res.status(500).json({
       courts: ["Supreme Court of India"],
       years: [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2007, 2006, 2005, 2002, 1997, 1996, 1994, 1993, 1992, 1990, 1985, 1984, 1983, 1981, 1980, 1978, 1976, 1975, 1973, 1967, 1965, 1964, 1962, 1960, 1958, 1954, 1951, 1950, 1947]
     });
@@ -324,8 +328,10 @@ app.get('/api/acts', async (req, res) => {
       FROM legal_acts a
       ORDER BY a.enactment_year ASC, a.id ASC
     `);
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
     res.json(acts);
   } catch (err) {
+    res.setHeader('Cache-Control', 'no-store');
     res.status(500).json({ error: err.message });
   }
 });
@@ -425,8 +431,10 @@ app.get('/api/mappings', async (req, res) => {
       JOIN legal_acts ta ON ta.id = ts.act_id
       ORDER BY r.id ASC
     `);
+    res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
     res.json(mappings);
   } catch (err) {
+    res.setHeader('Cache-Control', 'no-store');
     res.status(500).json({ error: err.message });
   }
 });
