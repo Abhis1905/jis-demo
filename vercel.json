@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://jis-backend.onrender.com/api/$1"
+      "destination": "https://jis-backend-re5r.onrender.com/api/$1"
     }
   ]
 }
